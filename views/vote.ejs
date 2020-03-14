@@ -7,6 +7,33 @@
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
     <style>
+        body {
+            background-image: url(https://storge.pic2.me/upload/902/58f49c9f32ac0.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        @media only screen and (max-width: 1080px) {
+            body {
+                background-image: url(https://img.wallpapersafari.com/phone/750/1334/75/96/1gJru8.jpg);
+                margin: 0;
+            }
+        }
+        
+        .wrapper {
+            margin: 16px 0 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            height: 96vh;
+            background-color: rgba(0, 0, 0, 0.466);
+        }
+        
         form {
             display: flex;
             flex-direction: column;
@@ -15,37 +42,31 @@
             border: 1px solid;
             align-self: center;
         }
-
-        .container {
-            display: flex;
-            align-items: center;
-            height: 100vh;
-        }
     </style>
 </head>
 
 <body>
 
 
-    <div class="container">
-        <form class="vote" method= "Post" action="/result">
-            
+    <div class="wrapper">
+        <form class="vote" method="Post" action="/result">
+
 
             <% members.forEach(member => { %>
                 <div class="mdc-form-field">
-                        <div class="mdc-radio">
-                            <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radios"  value=<%= member  %>>
-                            <div class="mdc-radio__background">
-                                <div class="mdc-radio__outer-circle"></div>
-                                <div class="mdc-radio__inner-circle"></div>
-                            </div>
-                            <div class="mdc-radio__ripple"></div>
+                    <div class="mdc-radio">
+                        <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radios" value=<%=member %>>
+                        <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
                         </div>
-                        <label for="radio-1"><%= member %></label>
+                        <div class="mdc-radio__ripple"></div>
                     </div>
-            <% }); %>
+                    <label for="radio-1"><%= member %></label>
+                </div>
+                <% }); %>
 
-            <button>Vote</button>
+                    <button>Vote</button>
         </form>
     </div>
 
