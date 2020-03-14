@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .results {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            background-image: -webkit-repeating-radial-gradient( ellipse, rgb(255, 119, 255), #f588da, rgb(241, 20, 149));
+        }
+        
+        h1 {
+            margin-top: 20px;
+        }
+        
+        .results__chart {
+            width: 90%;
+            margin: 20px;
+        }
+        
+        .progress {
+            margin-bottom: 10px;
+            background-color: transparent;
+        }
+        
+        .progress-bar {
+            background-color: rgb(54, 60, 70);
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="results">
+        <h1>Результаты</h1>
+        <div class="results__chart">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Иван Голованенко 100%</div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Виталий 75%</div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Михаил 50%</div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Лох 25%</div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Писюн 0%</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

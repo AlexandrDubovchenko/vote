@@ -7,6 +7,8 @@ const ejs = require('ejs')
 const password = '12345';
 const members = [];
 const membersRes = {};
+const adminPassword = 'admin';
+let isAdmin = false;
 
 
 
