@@ -25,45 +25,27 @@
 </head>
 
 <body>
+
+
     <div class="container">
-        <form action="#">
-            <div class="mdc-form-field">
-                <div class="mdc-radio">
-                    <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radios" checked>
-                    <div class="mdc-radio__background">
-                        <div class="mdc-radio__outer-circle"></div>
-                        <div class="mdc-radio__inner-circle"></div>
+        <form class="vote" method= "Post" action="/result">
+            
+
+            <% members.forEach(member => { %>
+                <div class="mdc-form-field">
+                        <div class="mdc-radio">
+                            <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radios"  value=<%= member  %>>
+                            <div class="mdc-radio__background">
+                                <div class="mdc-radio__outer-circle"></div>
+                                <div class="mdc-radio__inner-circle"></div>
+                            </div>
+                            <div class="mdc-radio__ripple"></div>
+                        </div>
+                        <label for="radio-1"><%= member %></label>
                     </div>
-                    <div class="mdc-radio__ripple"></div>
-                </div>
-                <label for="radio-1">Radio 1</label>
-            </div>
+            <% }); %>
 
-            <div class="mdc-form-field">
-                <div class="mdc-radio">
-                    <input class="mdc-radio__native-control" type="radio" id="radio-2" name="radios" checked>
-                    <div class="mdc-radio__background">
-                        <div class="mdc-radio__outer-circle"></div>
-                        <div class="mdc-radio__inner-circle"></div>
-                    </div>
-                    <div class="mdc-radio__ripple"></div>
-                </div>
-                <label for="radio-2">Radio 1</label>
-            </div>
-
-            <div class="mdc-form-field">
-                <div class="mdc-radio">
-                    <input class="mdc-radio__native-control" type="radio" id="radio-3" name="radios" checked>
-                    <div class="mdc-radio__background">
-                        <div class="mdc-radio__outer-circle"></div>
-                        <div class="mdc-radio__inner-circle"></div>
-                    </div>
-                    <div class="mdc-radio__ripple"></div>
-                </div>
-                <label for="radio-3">Radio 1</label>
-            </div>
-
-
+            <button>Vote</button>
         </form>
     </div>
 
