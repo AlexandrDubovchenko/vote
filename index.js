@@ -48,9 +48,14 @@ app.post('/vote', urlencodedParser, (req, res) =>{
 })
 app.post('/result', urlencodedParser, function (req, res, next) { 
     res.render('result')
-    membersRes[req.body.radios]++;
-  res.end();
+    res.end();
 });
+app.post('/voted', urlencodedJson, function (req, res) {
+  membersRes[req.body.radios]++;
+  console.log(membersRes);
+  
+})
+
 app.post('/create', urlencodedJson, (req, res)=>{
   req.body.forEach(member => members.push(member));
   members.forEach(member => membersRes[member] = 0);
