@@ -14,15 +14,12 @@ $authForm.addEventListener('submit', e => {
         .then(res => res.json())
         .then(res => {
             if (res.authorize) {
-                fetch(
-                    '/vote', {
-                        method: 'POST',
-                        body: '',
-                        headers: {
-                            'Content-Type': 'text/html'
-                        }
-                    }).then($authForm.submit())
-                } else {
+                $authForm.action = '/vote'
+               $authForm.submit()
+                }else if(res.authorizeAdmin){
+                    $authForm.action = '/admin';
+                    $authForm.submit() }
+                else {
                 alert('Неверный пароль')
             }
         })
