@@ -6,13 +6,13 @@ const members = [];
 
 $formAdmin.addEventListener('submit', (e)=>{   
     e.preventDefault()
-   fetch('/admin', {
+   fetch('/create', {
     method: 'POST', 
     body: JSON.stringify(members),
     headers: {
       'Content-Type': 'application/json'
     }
-   }).then(window.location.replace("/")).then(res=>console.log(res))
+   }).then($formAdmin.submit())
 });
 $add.addEventListener('click', ()=>{
     const formData = new FormData($formAdmin);
