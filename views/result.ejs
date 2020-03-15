@@ -8,17 +8,57 @@
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
-        .results {
+        @font-face {
+            font-family: 'RubikMonoOne';
+            src: url('../fonts/RubikMonoOne/RubikMonoOne-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            background-image: url(https://storge.pic2.me/upload/902/58f49c9f32ac0.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
-            min-height: 100vh;
-            background-image: -webkit-repeating-radial-gradient( ellipse, rgb(255, 119, 255), #f588da, rgb(241, 20, 149));
+        }
+        
+        @media only screen and (max-width: 1080px) {
+            body {
+                background-image: url(https://img.wallpapersafari.com/phone/750/1334/75/96/1gJru8.jpg);
+                margin: 0;
+            }
         }
         
         h1 {
-            margin-top: 20px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            font-family: RubikMonoOne;
+            color: aliceblue;
+            font-weight: bolder;
+        }
+        
+        .wrapper {
+            margin: 16px 0 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            height: 96vh;
+            background-color: rgba(0, 0, 0, 0.466);
+        }
+        
+        .wrapper {
+            margin: 16px 0 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            height: 96vh;
+            background-color: rgba(0, 0, 0, 0.466);
         }
         
         .results__chart {
@@ -29,18 +69,37 @@
         .progress {
             margin-bottom: 10px;
             background-color: transparent;
+            height: 30px;
         }
         
         .progress-bar {
             background-color: rgb(54, 60, 70);
             border-radius: 50px;
+            height: 100%;
+            font-size: 14px;
+        }
+        
+        .control {
+            margin-top: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60%;
+        }
+        
+        .control .btn {
+            width: 100%;
+            margin-bottom: 6px;
+            border-radius: 30px;
         }
     </style>
 </head>
 
 <body>
-    <div class="results">
+    <div class="wrapper">
         <h1>Результаты</h1>
+        <div class="timer"></div>
+
         <div class="results__chart">
             <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Иван Голованенко 100%</div>
@@ -57,6 +116,12 @@
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Писюн 0%</div>
             </div>
+        </div>
+
+        <div class="control">
+            <button type="button" class="btn btn-dark" id="btnStop">Завершить</button>
+            <button type="button" class="btn btn-dark" id="btnCreate">Создать новое</button>
+            <button type="button" class="btn btn-dark" id="btnExit">Выйти</button>
         </div>
     </div>
 </body>
