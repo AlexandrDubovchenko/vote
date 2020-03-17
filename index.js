@@ -7,6 +7,7 @@ const ejs = require('ejs')
 const password = '12345';
 let members = [];
 let membersRes = {};
+let isVote = false;
 const adminPassword = 'admin';
 
 
@@ -27,9 +28,10 @@ app.get('/authorization', (req, res) => {
 
 app.get('/admin', (req, res)=> res.redirect('authorization'));
 
+
+
 app.post('/admin', urlencodedJson, function(req, res, next) {
-    members = [];
-    membersRes = {};
+
     res.render('admin')
     res.end();
 })
@@ -59,8 +61,14 @@ app.post('/voted', urlencodedJson, function(req, res) {
     console.log(membersRes);
 
 })
-
+app.post('/newvote', (req, res)=>{
+    members = [];
+    membersRes = {};
+    isVote = false;
+    res.redirect('admin')
+})
 app.post('/create', urlencodedJson, (req, res) => {
+    isVote = true;
     req.body.forEach(member => members.push(member));
     members.forEach(member => membersRes[member] = 0);
 })
