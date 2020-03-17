@@ -1,5 +1,9 @@
 const $authForm = document.querySelector('.authorization');
 const password = {};
+
+const $inputPassword = document.getElementById('inputPassword');
+$inputPassword.value = localStorage.getItem('passwordAdmin') || localStorage.getItem('password')
+
 $authForm.addEventListener('submit', e => {
     e.preventDefault();
     const authFormData = new FormData($authForm);
@@ -14,9 +18,11 @@ $authForm.addEventListener('submit', e => {
         .then(res => res.json())
         .then(res => {
             if (res.authorize) {
+                localStorage.setItem('password', $inputPassword.value)
                 $authForm.action = '/vote'
                $authForm.submit()
                 }else if(res.authorizeAdmin){
+                    localStorage.setItem('passwordAdmin', $inputPassword.value)
                     $authForm.action = '/admin';
                     $authForm.submit() }
                 else {

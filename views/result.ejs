@@ -40,6 +40,7 @@
             flex-direction: column;
             align-items: center;
             width: 80%;
+            min-height: 100vh;
             background-color: rgba(0, 0, 0, 0.466);
         }
         
@@ -47,6 +48,7 @@
         .results__chart {
             width: 90%;
             margin: 20px;
+            margin-bottom: 40%;
         }
         
         .progress {
@@ -60,10 +62,11 @@
             border-radius: 50px;
             height: 100%;
             font-size: 14px;
+            
         }
         
         .control {
-            margin-top: 40%;
+            
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -74,6 +77,14 @@
             width: 100%;
             margin-bottom: 6px;
             border-radius: 30px;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+        a:hover{
+            text-decoration: none;
+            color: inherit;
         }
     </style>
 </head>
@@ -100,13 +111,15 @@
                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Писюн 0%</div>
             </div>
         </div>
-
+        <form action="/admin" method="post" id="createForm"></form>
         <div class="control">
             <button type="button" class="btn btn-dark" id="btnStop">Завершить</button>
             <button type="button" class="btn btn-dark" id="btnCreate">Создать новое</button>
-            <button type="button" class="btn btn-dark" id="btnExit">Выйти</button>
+            <button type="button" class="btn btn-dark" id="btnExit"><a href="/">Выйти</a> </button>
         </div>
     </div>
+
+    <script src="/scripts/result.js"></script>
 </body>
 
 </html>

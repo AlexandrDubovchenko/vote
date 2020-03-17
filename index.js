@@ -5,8 +5,8 @@ const ejs = require('ejs')
 
 
 const password = '12345';
-const members = [];
-const membersRes = {};
+let members = [];
+let membersRes = {};
 const adminPassword = 'admin';
 
 
@@ -25,7 +25,11 @@ app.get('/authorization', (req, res) => {
     res.render('authorization');
 })
 
+app.get('/admin', (req, res)=> res.redirect('authorization'));
+
 app.post('/admin', urlencodedJson, function(req, res, next) {
+    members = [];
+    membersRes = {};
     res.render('admin')
     res.end();
 })
