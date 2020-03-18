@@ -16,14 +16,14 @@
             flex-direction: column;
             align-items: center;
         }
-        
+
         @media only screen and (max-width: 1080px) {
             body {
                 background-image: url(https://img.wallpapersafari.com/phone/750/1334/75/96/1gJru8.jpg);
                 margin: 0;
             }
         }
-        
+
         .wrapper {
             margin: 16px 0 10px 0;
             display: flex;
@@ -33,7 +33,7 @@
             height: 96vh;
             background-color: rgba(0, 0, 0, 0.466);
         }
-        
+
         form {
             display: flex;
             flex-direction: column;
@@ -42,18 +42,24 @@
             border: 1px solid;
             align-self: center;
         }
-        a{
-            text-decoration: none;
-            color: inherit;
-        }
-        a:hover{
+
+        a {
             text-decoration: none;
             color: inherit;
         }
 
-        span{
+        a:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        span {
             color: white;
             font-size: 30px;
+        }
+
+        .mdc-form-field>label{
+            width: 100%;
         }
     </style>
 </head>
@@ -65,30 +71,33 @@
         <div class="timerContainer">
             <span class="timer"></span>
         </div>
-        <form class="vote">
+        <form class="vote" method="POST">
 
 
-            <% members.forEach(member => { %>
-                <div class="mdc-form-field">
-                    <div class="mdc-radio">
-                        <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radios" value=<%=member %>>
-                        <div class="mdc-radio__background">
-                            <div class="mdc-radio__outer-circle"></div>
-                            <div class="mdc-radio__inner-circle"></div>
-                        </div>
-                        <div class="mdc-radio__ripple"></div>
+            <% members.forEach((member, index) => { %>
+            <div class="mdc-form-field">
+               
+                <div class="mdc-radio">
+                    
+                    <input class="mdc-radio__native-control" type="radio" id="radio-<%= index+1%>" name="radios" value=<%=member %>>
+                    <div class="mdc-radio__background">
+                        <div class="mdc-radio__outer-circle"></div>
+                        <div class="mdc-radio__inner-circle"></div>
                     </div>
-                    <label for="radio-1"><%= member %></label>
+                    <div class="mdc-radio__ripple"></div>
+                    
                 </div>
-                <% }); %>
+                <label for="radio-<%= index+1%>">  <%= member %>   </label>
+            </div>
+            <% }); %>
 
-                    <button id="vote">Vote</button>
-                    <button type="button"id="btnExit"><a id="exit" href="/">Выйти</a> </button>
+            <button id="vote">Vote</button>
+            <button type="button" id="btnExit"><a id="exit" href="/">Выйти</a> </button>
         </form>
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>   
-<script src="/scripts/cookies.js"></script> 
-<script src="/scripts/vote.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="/scripts/cookies.js"></script>
+    <script src="/scripts/vote.js"></script>
 </body>
 
 </html>

@@ -7,12 +7,21 @@ const ejs = require('ejs')
 const password = '12345';
 let members = [];
 let membersRes = {};
+let votes = 0;
 let isVote = false;
+let isFinished = false;
+
+
 const adminPassword = 'admin';
 let timeStart = null;
 
 
-
+async function finishVote() {
+    setTimeout(()=>{
+        
+        isFinished = true;        
+    }, 60000);
+}
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const urlencodedJson = bodyParser.json({ extended: false });
@@ -29,17 +38,21 @@ app.get('/authorization', (req, res) => {
 
 app.get('/admin', (req, res)=> res.redirect('authorization'));
 
+app.get('/admin/isvote', urlencodedJson, function(req, res, next) {
+    res.send(isVote);
+});
+app.get('/isfinished',urlencodedJson, (req,res)=> res.send(isFinished));
 
+app.get('/vote/time', urlencodedJson, (req, res)=>{res.send(JSON.stringify(timeStart))})
 
 app.post('/admin', urlencodedJson, function(req, res, next) {
 
-    res.render('admin')
+    res.render('admin', {isVote: isVote})
     res.end();
 })
 
-app.post('/authorization', urlencodedJson, function(req, res, next) {
-    console.log(req.body.password);
 
+app.post('/authorization', urlencodedJson, function(req, res, next) {
     if (password === req.body.password) {
         res.send(JSON.stringify({ 'authorize': true }))
     } else if (adminPassword === req.body.password) {
@@ -49,14 +62,23 @@ app.post('/authorization', urlencodedJson, function(req, res, next) {
     }
     res.end();
 });
-app.get('/vote/time', urlencodedJson, (req, res)=>{res.send(JSON.stringify(timeStart))})
-app.post('/vote', urlencodedParser, (req, res) => res.render('vote', { members: members }));
-app.post('/result', urlencodedParser, function(req, res, next) {
-    res.render('result')
+
+app.post('/vote', urlencodedParser, (req, res) =>{
+        res.render('vote', { members: members, votes: votes })    
+} );
+app.post('/result', urlencodedJson, function(req, res, next) {
+
+    res.render('result', {membersRes: membersRes, votes: votes, });
+
+    
     res.end();
 });
-app.post('/voted', urlencodedJson, function(req, res) {
+app.post('/resultusers', urlencodedJson, function(req, res, next) {
+    res.render('resultusers', {membersRes: membersRes, votes: votes, });
+});
+app.post('/voted', urlencodedJson, function(req, res) {    
     membersRes[req.body.radios]++;
+    votes++;
 })
 app.post('/newvote', (req, res)=>{
     members = [];
@@ -65,11 +87,17 @@ app.post('/newvote', (req, res)=>{
     res.redirect('admin')
 })
 app.post('/create', urlencodedJson, (req, res) => {
-    isVote = true;
+    isFinished = false;
     req.body.members.forEach(member => members.push(member));
     members.forEach(member => membersRes[member] = 0);
     timeStart =  req.body.timeStart;
+    finishVote()
     
+});
+app.post('/finish', (req, res)=>{    
+    isVote = false;
+    members = [];
+    membersRes = {};
 })
 
 
