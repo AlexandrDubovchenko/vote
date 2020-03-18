@@ -50,6 +50,11 @@
             text-decoration: none;
             color: inherit;
         }
+
+        span{
+            color: white;
+            font-size: 30px;
+        }
     </style>
 </head>
 
@@ -57,6 +62,9 @@
 
 
     <div class="wrapper">
+        <div class="timerContainer">
+            <span class="timer"></span>
+        </div>
         <form class="vote">
 
 
@@ -78,6 +86,8 @@
                     <button type="button"id="btnExit"><a id="exit" href="/">Выйти</a> </button>
         </form>
     </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>   
+<script src="/scripts/cookies.js"></script> 
 <script src="/scripts/vote.js"></script>
 </body>
 

@@ -4,11 +4,16 @@ const members = [];
 
 
 
+
 $formAdmin.addEventListener('submit', (e)=>{   
     e.preventDefault()
+    const adminData = {
+        members: members,
+        timeStart: +moment().format('X'),
+    }
    fetch('/create', {
     method: 'POST', 
-    body: JSON.stringify(members),
+    body: JSON.stringify(adminData),
     headers: {
       'Content-Type': 'application/json'
     }

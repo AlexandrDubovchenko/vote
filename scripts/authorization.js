@@ -50,11 +50,12 @@ function formDataToObj(FormData) {
 function passwordCheck(res) {
     
     if (res.authorize) {
-        setCookie('password', $inputPassword.value, options = {});
+       
+        setCookie('password', $inputPassword.value, options = {'expires': new Date(Date.now() + 8600e3)});
         $authForm.action = '/vote';
         $authForm.submit();
     } else if (res.authorizeAdmin) {
-        setCookie('passwordAdmin', $inputPassword.value, options = {});
+        setCookie('passwordAdmin', $inputPassword.value, options = {'expires': new Date(Date.now() + 8600e3)});
         $authForm.action = '/admin';
         $authForm.submit();
     }
@@ -72,35 +73,3 @@ function passwordCheck(res) {
 }
 
 
-function setCookie(name, value, options = {}) {
-
-    options = {
-      path: '/',
-      // при необходимости добавьте другие значения по умолчанию
-      ...options
-    };
-  
-    if (options.expires instanceof Date) {
-      options.expires = options.expires.toUTCString();
-    }
-  
-    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-  
-    for (let optionKey in options) {
-      updatedCookie += "; " + optionKey;
-      let optionValue = options[optionKey];
-      if (optionValue !== true) {
-        updatedCookie += "=" + optionValue;
-      }
-    }
-  
-    document.cookie = updatedCookie;
-  }
-
-
-  function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : null;
-  }

@@ -9,6 +9,7 @@ let members = [];
 let membersRes = {};
 let isVote = false;
 const adminPassword = 'admin';
+let timeStart = null;
 
 
 
@@ -48,18 +49,14 @@ app.post('/authorization', urlencodedJson, function(req, res, next) {
     }
     res.end();
 });
-
-app.post('/vote', urlencodedParser, (req, res) => {
-    res.render('vote', { members: members })
-})
+app.get('/vote/time', urlencodedJson, (req, res)=>{res.send(JSON.stringify(timeStart))})
+app.post('/vote', urlencodedParser, (req, res) => res.render('vote', { members: members }));
 app.post('/result', urlencodedParser, function(req, res, next) {
     res.render('result')
     res.end();
 });
 app.post('/voted', urlencodedJson, function(req, res) {
     membersRes[req.body.radios]++;
-    console.log(membersRes);
-
 })
 app.post('/newvote', (req, res)=>{
     members = [];
@@ -69,8 +66,10 @@ app.post('/newvote', (req, res)=>{
 })
 app.post('/create', urlencodedJson, (req, res) => {
     isVote = true;
-    req.body.forEach(member => members.push(member));
+    req.body.members.forEach(member => members.push(member));
     members.forEach(member => membersRes[member] = 0);
+    timeStart =  req.body.timeStart;
+    
 })
 
 

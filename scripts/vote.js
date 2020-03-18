@@ -1,57 +1,99 @@
 const $voteForm = document.querySelector('.vote');
+$vote = document.getElementById('vote');
 const $btnExit = document.getElementById('btnExit');
 const $exitLink = document.getElementById('exit');
-const vote ={};
+const $timer = document.querySelector('.timer');
+let timeStart = null;
+ if (getCookie('voted')) {
+  $vote.disabled = true;
+ }
 
-$voteForm.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const voteFormData = new FormData($voteForm);
-    voteFormData.forEach((value, key) => vote[key] = value);
-    
-    
-    fetch('/voted', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(vote),
-    }).then();
-})
-
-$btnExit.addEventListener('click', (e) => {    
-    console.log('click');
-    
-    deleteCookie('password');
-    $exitLink.click();
+fetch('/vote/time', {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+}).then(res => res.json()).then(res => {
+  timeStart = +res;
+  $timer.textContent = getTimeLeft(timeStart ,60);
+  timerStart(timeStart)
 });
 
 
-function deleteCookie(name) {
-    setCookie(name, "", {
-      'max-age': -1
-    })
-  }
-  function setCookie(name, value, options = {}) {
 
-    options = {
-      path: '/',
-      // при необходимости добавьте другие значения по умолчанию
-      ...options
-    };
-  
-    if (options.expires instanceof Date) {
-      options.expires = options.expires.toUTCString();
-    }
-  
-    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-  
-    for (let optionKey in options) {
-      updatedCookie += "; " + optionKey;
-      let optionValue = options[optionKey];
-      if (optionValue !== true) {
-        updatedCookie += "=" + optionValue;
+$voteForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  $vote.disabled = true;
+  const voteFormData = new FormData($voteForm);
+  const vote = formDataToObj(voteFormData);
+  setVotedTrue();
+  sendVote(vote);
+})
+
+$btnExit.addEventListener('click', (e) => {
+  deleteCookie('password');
+  $exitLink.click();
+});
+
+
+
+function formDataToObj(FormData) {
+  const FormDataObj = {};
+  FormData.forEach((value, key) => FormDataObj[key] = value);
+  return FormDataObj
+}
+
+function timerStart(timeStart) {
+  let timeLeft = getTimeLeft(timeStart, 60); 
+  return function timerCount() {
+    const timer = setTimeout(() => {
+      if (timeLeft > 0) {
+        const formatted = moment.utc(timeLeft * 1000).format('mm:ss');
+        $timer.textContent = formatted;
+        --timeLeft;
+      } else {
+        clearTimeout(timer);
+        timeLeft = 0;
+        const formatted = moment.utc(timeLeft * 1000).format('mm:ss');
+        $timer.textContent = formatted;
       }
-    }
-  
-    document.cookie = updatedCookie;
+
+
+
+      setTimeout(timerCount, 1000)
+    }, 0)
+  }()
+}
+
+
+
+function getTimeLeft(timeStart ,deadline) {
+  let timeLeft = 0;
+  if (timeStart !== 0) {
+    return timeLeft = deadline - (+moment().format('X') - timeStart);
+  } else {
+    return timeLeft;
   }
+}
+
+function setVotedTrue() {
+  fetch('/vote/time', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  }).then(res => res.json()).then(res => {
+    timeStart = +res;
+    setCookie('voted', true, {'max-age': getTimeLeft(timeStart, 60)})
+  });
+}
+
+function sendVote(vote) {
+  fetch('/voted', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(vote),
+  }).then();
+}
