@@ -42,6 +42,14 @@
             border: 1px solid;
             align-self: center;
         }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+        a:hover{
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
 
@@ -66,7 +74,8 @@
                 </div>
                 <% }); %>
 
-                    <button>Vote</button>
+                    <button id="vote">Vote</button>
+                    <button type="button"id="btnExit"><a id="exit" href="/">Выйти</a> </button>
         </form>
     </div>
 <script src="/scripts/vote.js"></script>

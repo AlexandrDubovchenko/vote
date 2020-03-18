@@ -1,6 +1,8 @@
 const $authForm = document.querySelector('.authorization');
 const $inputPassword = document.getElementById('inputPassword');
 $inputPassword.value = getCookie('passwordAdmin') || getCookie('password');
+
+
 let accessTry = 0;
 const authFormData = new FormData($authForm);
 const password = formDataToObj(authFormData);
