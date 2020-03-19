@@ -5,6 +5,41 @@ const members = [];
 
 $formAdmin.addEventListener('submit', (e)=>{   
     e.preventDefault()
+    createVote($formAdmin, members);
+});
+$add.addEventListener('click', ()=>{
+    addMember($formAdmin, members)
+    document.querySelector('[name="member"]').value='';      
+});
+
+
+
+
+
+
+
+
+
+
+
+function render(parent, content){
+    const $li = document.createElement('li');
+    $li.textContent =  content;
+    parent.append($li);
+}
+
+function addMember($formAdmin, members){
+    const formData = new FormData($formAdmin);
+    formData.forEach(value=>{
+        if (value !== '') {
+            members.push(value)
+            render(document.querySelector('.members'), value);
+        }
+
+    });
+}
+
+function createVote($formAdmin, members){
     const adminData = {
         members: members,
         timeStart: +moment().format('X'),
@@ -17,20 +52,5 @@ $formAdmin.addEventListener('submit', (e)=>{
       'Content-Type': 'application/json'
     }
    }).then($formAdmin.submit())
-});
-$add.addEventListener('click', ()=>{
-    const formData = new FormData($formAdmin);
-    formData.forEach(value=>{
-        members.push(value)
-        render(document.querySelector('.members'), value);
-    });
-    document.querySelector('[name="member"]').value='';      
-});
-
-function render(parent, content){
-    const $li = document.createElement('li');
-    $li.textContent =  content;
-    parent.append($li);
 }
-
 
