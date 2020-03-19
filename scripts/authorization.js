@@ -1,26 +1,13 @@
 const $authForm = document.querySelector('.authorization');
 const $inputPassword = document.getElementById('inputPassword');
+const title = document.querySelector('h3');
 $inputPassword.value = getCookie('passwordAdmin') || getCookie('password');
 
 
 let accessTry = 0;
-const authFormData = new FormData($authForm);
-const password = formDataToObj(authFormData);
+sendPassword($authForm)
 
 
-
-
-fetch('/authorization', {
-    method: 'POST',
-    body: JSON.stringify(password),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
-    .then(res => res.json())
-    .then(res => {
-        passwordCheck(res)
-    })
 
 
 
@@ -29,43 +16,39 @@ $authForm.addEventListener('submit', e => {
     
     accessTry++;
     e.preventDefault();
+    sendPassword($authForm);
+    
+});
+
+
+
+function sendPassword($authForm) {
     const authFormData = new FormData($authForm);
-    const password = formDataToObj(authFormData);
+    const authFormObj = formDataToObj(authFormData);
     fetch('/authorization', {
         method: 'POST',
-        body: JSON.stringify(password),
+        body: JSON.stringify(authFormObj),
         headers: {
             'Content-Type': 'application/json'
         }
     })
         .then(res => res.json())
         .then(res => {
-            passwordCheck(res)
+            passwordCheck(res, $authForm, $inputPassword.value, title);
         });
-});
-
-
-function formDataToObj(FormData) {
-    const FormDataObj = {};
-    FormData.forEach((value, key) => FormDataObj[key] = value);
-    return FormDataObj
 }
 
-function passwordCheck(res) {
+function passwordCheck(res, $authForm, password, title) {
     
     if (res.authorize) {
-        setCookie('password', $inputPassword.value, options = {'expires': new Date(Date.now() + 8600e3)});
-        $authForm.action = '/vote';
-        $authForm.submit();
+        giveAccess($authForm, password)
     } else if (res.authorizeAdmin) {
-        setCookie('passwordAdmin', $inputPassword.value, options = {'expires': new Date(Date.now() + 8600e3)});
+        setCookie('passwordAdmin', password, options = {'expires': new Date(Date.now() + 8600e3)});
         getIsVote($authForm);
     }
     else {       
-        if (accessTry > 0) {
-            const title = document.querySelector('h3');
-            title.textContent = 'Попробуйте еще раз';
-            title.style.color = 'red';
+        if (accessTry > 0) { 
+           showWrong(title)
         }
 
     }
@@ -92,5 +75,22 @@ function getIsVote($authForm) {
         }
     
     });
-    
+}
+
+function giveAccess($authForm, password) {
+    setCookie('password', password, options = {'expires': new Date(Date.now() + 8600e3)});
+    $authForm.action = '/vote';
+    $authForm.submit();
+}
+
+function  showWrong(title) {
+    title.style.color = 'red';
+    title.textContent = 'Неверный пароль' ;
+}
+
+
+function formDataToObj(FormData) {
+    const FormDataObj = {};
+    FormData.forEach((value, key) => FormDataObj[key] = value);
+    return FormDataObj
 }
