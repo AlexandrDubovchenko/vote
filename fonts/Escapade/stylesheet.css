@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Escapade';
+    src: url('Escapade.woff2') format('woff2'),
+        url('Escapade.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
