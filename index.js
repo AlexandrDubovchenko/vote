@@ -47,7 +47,7 @@ app.get('/vote/time', urlencodedJson, (req, res)=>{res.send(JSON.stringify(timeS
 
 app.post('/admin', urlencodedJson, function(req, res, next) {
 
-    res.render('admin', {isVote: isVote})
+    res.render('admin');
     res.end();
 })
 
@@ -88,6 +88,7 @@ app.post('/newvote', (req, res)=>{
 })
 app.post('/create', urlencodedJson, (req, res) => {
     isFinished = false;
+    isVote = true;
     req.body.members.forEach(member => members.push(member));
     members.forEach(member => membersRes[member] = 0);
     timeStart =  req.body.timeStart;
