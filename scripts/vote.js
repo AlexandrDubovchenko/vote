@@ -13,12 +13,12 @@ getIsFinish($voteForm);
   $members.forEach(member => member.disabled = true);
   $vote.disabled = true;
  }
-// timerWork('/vote/time', $timer);
+timerWork('/vote/time', $timer);
 
 
 $voteForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  $vote.disabled = true;
+  toggle($vote, $revote);
   setVotedTrue();
   sendVote('/voted', $voteForm);
   $members.forEach(member => member.disabled = true);
@@ -30,9 +30,9 @@ $btnExit.addEventListener('click', () => {
 });
 
 $revote.addEventListener('click', ()=>{
-  console.log('click');
+  
   $members.forEach(member => member.removeAttribute('disabled'));
-  $vote.removeAttribute('disabled')
+  toggle($revote, $vote)
   sendVote('/revote', $voteForm);
 })
 
@@ -43,7 +43,12 @@ $revote.addEventListener('click', ()=>{
 
 
 
-
+function toggle(clicked, hidden) {
+  hidden.removeAttribute('disabled');
+  hidden.removeAttribute('hidden');
+  clicked.hidden = true;
+  clicked.disabled = true;
+}
 
 
 
@@ -127,13 +132,17 @@ function setVotedTrue() {
 function sendVote(url, $voteForm) {
   const voteFormData = new FormData($voteForm);
   const vote = formDataToObj(voteFormData);
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(vote),
-  }).then();
+  if (Object.keys(vote).length > 0) {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(vote),
+    }).then();
+  } 
+  
+  
 }
 
 function timeFormatted(format, timeLeft){
