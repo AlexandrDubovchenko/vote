@@ -80,10 +80,14 @@ app.post('/resultusers', urlencodedJson, function(req, res, next) {
     res.render('resultusers', { membersRes: membersRes, votes: votes, });
 });
 app.post('/revote', urlencodedJson, (req, res)=>{
-    membersRes[req.body.radios]--;
+    if (membersRes[req.body.radios] > 0 ) {
+        membersRes[req.body.radios]--;
+    }
+    if (votes > 0) {
+        votes--;
+    }
     console.log(membersRes);
     console.log(req.body.radios);
-    votes--;
     res.end();
 });
 app.post('/voted', urlencodedJson, function(req, res) {
