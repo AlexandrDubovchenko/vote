@@ -13,7 +13,7 @@ getIsFinish($voteForm);
   $members.forEach(member => member.disabled = true);
   $vote.disabled = true;
  }
-timerWork('/vote/time', $timer);
+// timerWork('/vote/time', $timer);
 
 
 $voteForm.addEventListener('submit', (e) => {
@@ -30,6 +30,7 @@ $btnExit.addEventListener('click', () => {
 });
 
 $revote.addEventListener('click', ()=>{
+  console.log('click');
   $members.forEach(member => member.removeAttribute('disabled'));
   $vote.removeAttribute('disabled')
   sendVote('/revote', $voteForm);
