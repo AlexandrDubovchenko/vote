@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/btnNeon.css">
     <style>
         @font-face {
             font-family: 'LIBRARY 3 AM';
@@ -43,14 +44,51 @@
             height: 96vh;
             background-color: rgba(0, 0, 0, 0.466);
         }
+        /*  */
+        
+        .admin__form__input {
+            display: flex;
+            border: 2px solid #15f4ee;
+            background-color: #ffffffb2;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+        
+        .admin__form__input input {
+            flex-grow: 2;
+            background: none;
+            font-family: Raleway;
+            font-size: 14px;
+            padding: 0;
+            padding-left: 34px;
+            color: black;
+            border: none;
+            border-radius: 50px;
+        }
+        
+        .admin__form__input input:focus {
+            outline: none;
+        }
+        
+        .admin__form__input button {
+            border: none;
+            border-radius: 50px;
+            padding: 0;
+            font-size: 7vw;
+            color: #ffffff;
+            font-family: 'LIBRARY 3 AM';
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+        /*  */
         
         form {
             display: flex;
             flex-direction: column;
-            width: 50%;
-            margin: auto;
-            border: 1px solid;
+            width: 80%;
             align-self: center;
+            margin-bottom: 90px;
         }
         
         h1 {
@@ -58,6 +96,25 @@
             color: red;
             font-weight: initial;
             text-align: center;
+        }
+        
+        #btnAdd {
+            margin: 0;
+            width: 22%;
+        }
+        
+        #divAdd {
+            font-size: 4vw;
+            font-weight: 800;
+        }
+        
+        #divAdd:hover {
+            box-shadow: none;
+            text-shadow: none;
+        }
+        
+        #btnExit {
+            width: 90%;
         }
     </style>
 </head>
@@ -70,10 +127,14 @@
             <ul class="members">
 
             </ul>
-            <input type="text" name='member'>
-            <button type="button" class="add">Add</button>
-            <button>Submit</button>
+            <div class="admin__form__input">
+                <input type="text" name='member'>
+                <button type="button" class="add btncontainer" id="btnAdd"><div class="btnbutton" id="divAdd">+</div></button>
+            </div>
+            <button class="btncontainer"><div class="btnbutton sndbtn">Submit</div></button>
         </form>
+
+        <button class="btncontainer" id="btnExit"><div class="btnbutton">Выход</div></button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="/scripts/cookies.js"></script>

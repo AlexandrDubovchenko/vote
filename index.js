@@ -27,6 +27,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const urlencodedJson = bodyParser.json({ extended: false });
 app.use('/scripts', express.static(__dirname + '/scripts'));
 app.use('/fonts', express.static(__dirname + '/fonts'));
+app.use('/styles', express.static(__dirname + '/styles'));
 app.set("view engine", "ejs");
 
 app.get('/', function(req, res) {
