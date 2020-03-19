@@ -6,7 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
+        @font-face {
+            font-family: 'Border Control';
+            src: url('../fonts/BorderControl/BorderControl.woff2') format('woff2'), url('../fonts/BorderControl/BorderControl.woff') format('woff');
+        }
+        
+        @font-face {
+            font-family: 'Border Control Italic';
+            src: url('../fonts/BorderControl/BorderControl-Italic.woff2') format('woff2'), url('../fonts/BorderControl/BorderControl-Italic.woff') format('woff');
+        }
+        
+        @font-face {
+            font-family: 'Escapade';
+            src: url('../fonts/Escapade/Escapade.woff2') format('woff2'), url('../fonts/Escapade/Escapade.woff') format('woff');
+        }
+        
+        @font-face {
+            font-family: 'LIBRARY 3 AM';
+            src: url('../fonts/Library3am/LIBRARY3AM.woff2') format('woff2'), url('../fonts/Library3am/LIBRARY3AM.woff') format('woff');
+        }
+        
+        @font-face {
+            font-family: 'LIBRARY 3 AM soft';
+            src: url('../fonts/Library3am/LIBRARY3AMsoft.woff2') format('woff2'), url('../fonts/Library3am/LIBRARY3AMsoft.woff') format('woff');
+        }
+        
         body {
             background-image: url(https://storge.pic2.me/upload/902/58f49c9f32ac0.jpg);
             background-repeat: no-repeat;
@@ -16,14 +42,14 @@
             flex-direction: column;
             align-items: center;
         }
-
+        
         @media only screen and (max-width: 1080px) {
             body {
                 background-image: url(https://img.wallpapersafari.com/phone/750/1334/75/96/1gJru8.jpg);
                 margin: 0;
             }
         }
-
+        
         .wrapper {
             margin: 16px 0 10px 0;
             display: flex;
@@ -32,33 +58,101 @@
             width: 80%;
             height: 96vh;
             background-color: rgba(0, 0, 0, 0.466);
+            overflow-y: scroll;
         }
-
+        
+        .wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        
         form {
             display: flex;
             flex-direction: column;
             width: 50%;
-            margin: auto;
             border: 1px solid;
             align-self: center;
         }
-
+        
         a {
             text-decoration: none;
             color: inherit;
         }
-
+        
         a:hover {
             text-decoration: none;
             color: inherit;
         }
-
-        span {
-            color: white;
-            font-size: 30px;
+        
+        .timer {
+            font-family: 'LIBRARY 3 AM';
+            font-size: 13vw;
+            color: #ff0015;
+            font-weight: bold;
         }
-
-        .mdc-form-field>label{
+        
+        #voteH1--1 {
+            font-family: "Border Control";
+            margin: 20px 0 -3px 0;
+            font-weight: 500;
+            font-size: 7vw;
+            background: linear-gradient(180deg, #0063ff 30%, #7100ff 60%, #ab00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        #voteH1--2 {
+            font-family: "Border Control Italic";
+            font-weight: 500;
+            font-size: 7vw;
+            margin: 0;
+            background: linear-gradient(180deg, #ab00ff, #d4178d 40%, #ff0015 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        #voteH3--1 {
+            font-family: 'Border Control';
+            color: aliceblue;
+            font-weight: 500;
+            font-size: 4vw;
+            margin: 0;
+            margin-bottom: -2px;
+        }
+        
+        #voteH3--2 {
+            font-family: 'Border Control Italic';
+            color: aliceblue;
+            font-weight: 500;
+            font-size: 4vw;
+            margin: 0;
+        }
+        
+        @media only screen and (min-width: 1080px) {
+            #voteH1--1 {
+                font-size: 4vw;
+                margin-bottom: -9px;
+            }
+            #voteH1--2 {
+                font-size: 4vw;
+            }
+            #voteH3--1 {
+                font-size: 1.5vw;
+            }
+            #voteH3--2 {
+                font-size: 1.5vw;
+            }
+        }
+        
+        .varlabel {
+            color: aliceblue;
+        }
+        
+        #btnExit {
+            margin-top: 60px;
+            width: 50%;
+        }
+        
+        .mdc-form-field>label {
             width: 100%;
         }
     </style>
@@ -68,32 +162,39 @@
 
 
     <div class="wrapper">
-        <div class="timerContainer">
-            <span class="timer"></span>
-        </div>
-        <form class="vote" method="POST">
 
-
-            <% members.forEach((member, index) => { %>
-            <div class="mdc-form-field">
-               
-                <div class="mdc-radio">
-                    
-                    <input class="mdc-radio__native-control" type="radio" id="radio-<%= index+1%>" name="radios" value=<%=member %>>
-                    <div class="mdc-radio__background">
-                        <div class="mdc-radio__outer-circle"></div>
-                        <div class="mdc-radio__inner-circle"></div>
-                    </div>
-                    <div class="mdc-radio__ripple"></div>
-                    
+        <h1 id="voteH1--1">Голосование</h1>
+        <h1 id="voteH1--2">Голосование</h1>
+        <h3 id="voteH3--1">за лучшего комика</h2>
+            <h3 id="voteH3--2">за лучшего комика</h2>
+                <div class="timerContainer">
+                    <span class="timer"></span>
                 </div>
-                <label for="radio-<%= index+1%>">  <%= member %>   </label>
-            </div>
-            <% }); %>
+                <form class="vote" method="POST">
 
-            <button id="vote">Vote</button>
-            <button type="button" id="btnExit"><a id="exit" href="/">Выйти</a> </button>
-        </form>
+
+                    <% members.forEach((member, index) => { %>
+                        <div class="mdc-form-field">
+
+                            <div class="mdc-radio">
+
+                                <input class="mdc-radio__native-control" type="radio" id="radio-<%= index+1%>" name="radios" value=<%=member %>>
+                                <div class="mdc-radio__background">
+                                    <div class="mdc-radio__outer-circle"></div>
+                                    <div class="mdc-radio__inner-circle"></div>
+                                </div>
+                                <div class="mdc-radio__ripple"></div>
+
+                            </div>
+                            <label for="radio-<%= index+1%>">  <%= member %>   </label>
+                        </div>
+                        <% }); %>
+
+                            <button class="btn btn-dark" id="vote">Проголосовать</button>
+                            <button class="btn btn-dark" id="revote">Переголосовать</button>
+
+                </form>
+                <button type="button" class="btn btn-dark" id="btnExit"><a id="exit" href="/">Выйти</a> </button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="/scripts/cookies.js"></script>

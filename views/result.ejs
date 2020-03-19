@@ -6,103 +6,251 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'LIBRARY 3 AM';
+            src: url('../fonts/Library3am/LIBRARY3AM.woff2') format('woff2'), url('../fonts/Library3am/LIBRARY3AM.woff') format('woff');
+        }
+        
+        @font-face {
+            font-family: 'LIBRARY 3 AM soft';
+            src: url('../fonts/Library3am/LIBRARY3AMsoft.woff2') format('woff2'), url('../fonts/Library3am/LIBRARY3AMsoft.woff') format('woff');
+        }
+        
         body {
-            background-image: url(https://storge.pic2.me/upload/902/58f49c9f32ac0.jpg);
+            background: linear-gradient( rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.5)), url(https://storge.pic2.me/upload/902/58f49c9f32ac0.jpg);
             background-repeat: no-repeat;
             background-size: cover;
-            background-position: center;
-        }
-
-        @media only screen and (max-width: 1080px) {
-            body {
-
-                margin: 0;
-            }
-        }
-
-        h1 {
-            margin-top: 10px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            font-family: 'RubikMonoOne';
-            color: aliceblue;
-            font-weight: bolder;
+            align-items: center;
         }
-
+        
+        @media only screen and (max-width: 1080px) {
+            body {
+                background: linear-gradient( rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.5)), url(https://storge.pic2.me/upload/902/58f49c9f32ac0.jpg);
+                margin: 0;
+                min-height: 100vh;
+                background-size: cover;
+            }
+        }
+        
+        .resultsh1 {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            font-family: 'LIBRARY 3 AM';
+            color: red;
+            font-size: 10vw;
+            display: none;
+            /* font-weight: bolder; */
+            text-shadow: 0.1vw 0vw 0.25vw #9d4a4a, 0.2vw 0vw 0.25vw #ff0000, 0.4vw 0vw 0.25vw #000000, .1vw 0vw 0vw #f25757, .2vw 0vw 0vw #f25757, .4vw 0vw 0vw #f25757, .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .4vw 0vw .1vw #f25757, .1vw 0vw 2vw #f25757, .2vw 0vw 2vw #f25757, .4vw 0vw 2vw #f25757, .1vw 0vw 1vw #e50b0b, .2vw 0vw 1vw #e50b0b, .4vw 0vw 5vw #e50b0b, .1vw 0vw 5vw #e50b0b, .2vw 0vw 20vw #e50b0b, .4vw 0vw 10vw #e50b0b, .1vw 0vw 10vw #e50b0b, .2vw 0vw 30vw #e50b0b, .4vw 0vw 10vw #e50b0b;
+        }
+        
         .wrapper {
-            margin: 0 auto;
+            margin: 16px 0 10px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 80%;
-            min-height: 100vh;
+            height: 96vh;
             background-color: rgba(0, 0, 0, 0.466);
+            overflow-y: scroll;
         }
-
-
+        
+        .wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        
         .results__chart {
             width: 90%;
             margin: 20px;
             margin-bottom: 40%;
         }
-
+        
         .progress {
             margin-bottom: 10px;
             background-color: transparent;
             height: 30px;
         }
-
+        
         .progress-bar {
             background-color: rgb(54, 60, 70);
             border-radius: 50px;
             height: 100%;
             font-size: 14px;
-
         }
-
+        
         .control {
-
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 60%;
         }
-
+        
         .control .btn {
             width: 100%;
             margin-bottom: 6px;
             border-radius: 30px;
         }
-
+        
         a {
             text-decoration: none;
             color: inherit;
         }
-
+        
         a:hover {
             text-decoration: none;
             color: inherit;
         }
+        /* NEON LIGHTING */
+        
+        h1.neon-heading {
+            margin-top: 50px;
+            display: flex;
+            font-family: 'LIBRARY 3 AM';
+            color: red;
+            font-size: 10vw;
+            text-align: center;
+        }
+        
+        h1.neon-heading.first {
+            text-shadow: 0.1vw 0vw 0.25vw #9d4a4a, 0.2vw 0vw 0.25vw #ff0000, 0.4vw 0vw 0.25vw #000000, .1vw 0vw 0vw #f25757, .2vw 0vw 0vw #f25757, .4vw 0vw 0vw #f25757, .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .4vw 0vw .1vw #f25757, .1vw 0vw 2vw #f25757, .2vw 0vw 2vw #f25757, .4vw 0vw 2vw #f25757, .1vw 0vw 1vw #e50b0b, .2vw 0vw 1vw #e50b0b, .4vw 0vw 5vw #e50b0b, .1vw 0vw 5vw #e50b0b, .2vw 0vw 20vw #e50b0b, .4vw 0vw 10vw #e50b0b, .1vw 0vw 10vw #e50b0b, .2vw 0vw 30vw #e50b0b, .4vw 0vw 10vw #e50b0b;
+        }
+        
+        h1.neon-heading.second {
+            text-shadow: 0px 0px 10px #33FF00, 0px 0px 20px #33FF00, 0px 0px 30px #33FF00, 0px 0px 40px #33FF00, 0px 0px 50px #33FF00, 0px 0px 60px #33FF00;
+            animation: pulsating 3s infinite;
+        }
+        /* FLICKERING */
+        
+        span.flickering-1 {
+            animation: flickering-1 6s infinite;
+        }
+        
+        span.flickering-2 {
+            animation: flickering-2 3s infinite;
+        }
+        
+        span.flickering-3 {
+            animation: flickering-3 5s infinite;
+        }
+        /* ANIMATIONS */
+        
+        @keyframes pulsating {
+            0% {
+                text-shadow: 0px 0px 0px;
+                opacity: 0;
+            }
+            50% {
+                text-shadow: 0px 0px 10px #33FF00, 0px 0px 20px #33FF00, 0px 0px 30px #33FF00, 0px 0px 40px #33FF00, 0px 0px 50px #33FF00, 0px 0px 60px #33FF00;
+                opacity: 1;
+            }
+            100% {
+                text-shadow: 0px 0px 0px;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes flickering-1 {
+            0% {
+                opacity: 1;
+            }
+            52% {
+                opacity: 1;
+            }
+            55% {
+                opacity: 0;
+            }
+            56% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes flickering-2 {
+            0% {
+                opacity: 1;
+            }
+            62% {
+                opacity: 1;
+            }
+            65% {
+                opacity: 0;
+            }
+            66% {
+                opacity: 1;
+            }
+            69% {
+                opacity: 0;
+            }
+            70% {
+                opacity: 1;
+            }
+            73% {
+                opacity: 0;
+            }
+            74% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes flickering-3 {
+            0% {
+                opacity: 1;
+            }
+            82% {
+                opacity: 1;
+            }
+            84% {
+                opacity: 0;
+            }
+            85% {
+                opacity: 1;
+            }
+            87% {
+                opacity: 0;
+            }
+            88% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0;
+            }
+            91% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        /*  */
     </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <h1>Результаты</h1>
+        <h1 class="resultsh1">Результаты</h1>
+        <h1 class="neon-heading first"><span class="flickering-3">Р</span>ез<span class="flickering-1">у</span>льт<span class="flickering-3">а</span> <span class="flickering-2">т</span><span class="flickering-3">ы</span></h1>
         <div class="timer"></div>
 
         <div class="results__chart">
             <% for (member in membersRes){ %>
 
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width:<%= votes * 100 / membersRes[member] %>% "
-                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> <%= member %> </div>
-            </div>
-            <%  } %>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width:<%= votes * 100 / membersRes[member] %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <%= member %>
+                    </div>
+                </div>
+                <%  } %>
         </div>
         <form action="/newvote" method="post" id="createForm"></form>
         <div class="control">
