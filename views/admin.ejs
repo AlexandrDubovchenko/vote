@@ -7,6 +7,16 @@
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'LIBRARY 3 AM';
+            src: url('../fonts/Library3am/LIBRARY3AM.woff2') format('woff2'), url('../fonts/Library3am/LIBRARY3AM.woff') format('woff');
+        }
+        
+        @font-face {
+            font-family: 'LIBRARY 3 AM soft';
+            src: url('../fonts/Library3am/LIBRARY3AMsoft.woff2') format('woff2'), url('../fonts/Library3am/LIBRARY3AMsoft.woff') format('woff');
+        }
+        
         body {
             background-image: url(https://storge.pic2.me/upload/902/58f49c9f32ac0.jpg);
             background-repeat: no-repeat;
@@ -42,12 +52,20 @@
             border: 1px solid;
             align-self: center;
         }
+        
+        h1 {
+            font-family: 'LIBRARY 3 AM';
+            color: red;
+            font-weight: initial;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="wrapper">
+        <h1>Добавьте участников</h1>
         <form class="admin" action="/result" method="POST">
             <ul class="members">
 
@@ -57,7 +75,7 @@
             <button>Submit</button>
         </form>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="/scripts/admin.js"></script>
 </body>
 

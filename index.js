@@ -17,6 +17,7 @@ let timeStart = null;
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const urlencodedJson = bodyParser.json({ extended: false });
 app.use('/scripts', express.static(__dirname + '/scripts'));
+app.use('/fonts', express.static(__dirname + '/fonts'));
 app.set("view engine", "ejs");
 
 app.get('/', function(req, res) {
@@ -27,7 +28,7 @@ app.get('/authorization', (req, res) => {
     res.render('authorization');
 })
 
-app.get('/admin', (req, res)=> res.redirect('authorization'));
+app.get('/admin', (req, res) => res.redirect('authorization'));
 
 
 
@@ -49,7 +50,7 @@ app.post('/authorization', urlencodedJson, function(req, res, next) {
     }
     res.end();
 });
-app.get('/vote/time', urlencodedJson, (req, res)=>{res.send(JSON.stringify(timeStart))})
+app.get('/vote/time', urlencodedJson, (req, res) => { res.send(JSON.stringify(timeStart)) })
 app.post('/vote', urlencodedParser, (req, res) => res.render('vote', { members: members }));
 app.post('/result', urlencodedParser, function(req, res, next) {
     res.render('result')
@@ -58,7 +59,7 @@ app.post('/result', urlencodedParser, function(req, res, next) {
 app.post('/voted', urlencodedJson, function(req, res) {
     membersRes[req.body.radios]++;
 })
-app.post('/newvote', (req, res)=>{
+app.post('/newvote', (req, res) => {
     members = [];
     membersRes = {};
     isVote = false;
@@ -68,8 +69,8 @@ app.post('/create', urlencodedJson, (req, res) => {
     isVote = true;
     req.body.members.forEach(member => members.push(member));
     members.forEach(member => membersRes[member] = 0);
-    timeStart =  req.body.timeStart;
-    
+    timeStart = req.body.timeStart;
+
 })
 
 
