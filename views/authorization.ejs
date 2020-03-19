@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/btnNeon.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
         body {
@@ -48,15 +49,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 50%;
+            width: 66%;
         }
         
         #inputPassword {
             margin-bottom: 8px;
+            text-align: center;
         }
         
-        .btn {
-            width: 100%;
+        .btnExit {
+            margin-top: 16px;
+            padding: 0;
         }
     </style>
 </head>
@@ -67,7 +70,7 @@
         <h3>Пожалуйста, введите пароль для входа</h3>
         <form class="authorization" action="/vote" method="post">
             <input type="password" id="inputPassword" class="form-control mx-sm-3" aria-describedby="passwordHelpInline" name='password'>
-            <button class="btn btn-dark">Войти</button>
+            <button class="btncontainer btnExit"><div class="btnbutton sndbtn">Войти</div></button>
         </form>
     </div>
     <script src="/scripts/cookies.js"></script>

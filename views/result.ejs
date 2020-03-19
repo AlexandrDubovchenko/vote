@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/btnNeon.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <style>
@@ -88,7 +89,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 60%;
+            width: 76%;
         }
         
         .control .btn {
@@ -119,11 +120,6 @@
         
         h1.neon-heading.first {
             text-shadow: 0.1vw 0vw 0.25vw #9d4a4a, 0.2vw 0vw 0.25vw #ff0000, 0.4vw 0vw 0.25vw #000000, .1vw 0vw 0vw #f25757, .2vw 0vw 0vw #f25757, .4vw 0vw 0vw #f25757, .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .4vw 0vw .1vw #f25757, .1vw 0vw 2vw #f25757, .2vw 0vw 2vw #f25757, .4vw 0vw 2vw #f25757, .1vw 0vw 1vw #e50b0b, .2vw 0vw 1vw #e50b0b, .4vw 0vw 5vw #e50b0b, .1vw 0vw 5vw #e50b0b, .2vw 0vw 20vw #e50b0b, .4vw 0vw 10vw #e50b0b, .1vw 0vw 10vw #e50b0b, .2vw 0vw 30vw #e50b0b, .4vw 0vw 10vw #e50b0b;
-        }
-        
-        h1.neon-heading.second {
-            text-shadow: 0px 0px 10px #33FF00, 0px 0px 20px #33FF00, 0px 0px 30px #33FF00, 0px 0px 40px #33FF00, 0px 0px 50px #33FF00, 0px 0px 60px #33FF00;
-            animation: pulsating 3s infinite;
         }
         /* FLICKERING */
         
@@ -255,12 +251,9 @@
         <form action="/newvote" method="post" id="createForm"></form>
         <div class="control">
 
-            <button type="button" class="btn btn-dark" id="btnStop" } %> >Завершить</button>
-            <button type="button" class="btn btn-dark" id="btnCreate" } %> >Создать новое</button>
-
-
-
-            <button type="button" class="btn btn-dark" id="btnExit"><a id="exit" href="/">Выйти</a> </button>
+            <button type="button" class="btncontainer" id="btnStop" } %> ><div class="btnbutton sndbtn">Завершить</div></button>
+            <button type="button" class="btncontainer" id="btnCreate" } %> ><div class="btnbutton">Создать новое</div></button>
+            <button type="button" class="btncontainer" id="btnExit"><div class="btnbutton" ><a id="exit" href="/">Выйти</a></div> </button>
         </div>
     </div>
     <script src="/scripts/cookies.js"></script>

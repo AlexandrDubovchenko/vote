@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'LIBRARY 3 AM';
+    src: url('../fonts/Library3am/LIBRARY3AM.woff2') format('woff2'), url('../fonts/Library3am/LIBRARY3AM.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'LIBRARY 3 AM soft';
+    src: url('../fonts/Library3am/LIBRARY3AMsoft.woff2') format('woff2'), url('../fonts/Library3am/LIBRARY3AMsoft.woff') format('woff');
+}
+
+.btncontainer {
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    background: transparent;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.btncontainer:focus {
+    outline: none;
+}
+
+.btnbutton {
+    position: relative;
+    text-align: center;
+    padding: 1vw 4vw 1vw 4vw;
+    font-size: 2vw;
+    color: #15f4ee;
+    font-family: 'LIBRARY 3 AM';
+    font-weight: 100;
+    border: 5px solid #15f4ee;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    cursor: pointer;
+    border-radius: 100px;
+    transition: 1.5s;
+}
+
+@media only screen and (max-width: 1080px) {
+    .btnbutton {
+        padding: 2vw 4vw 2vw 4 vw;
+        font-size: 5vw;
+    }
+    .btnbutton.sndbtn {
+        animation: pulsatings 6s infinite;
+        padding: 2vw 4vw 2vw 4 vw;
+        font-size: 5vw;
+    }
+}
+
+.btnbutton:hover {
+    box-shadow: 0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee, 0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee;
+    text-shadow: 0 0 5px #15f4ee, 0 0 5px #15f4ee;
+}
+
+@keyframes pulsatings {
+    0% {
+        text-shadow: 0px 0px 0px;
+    }
+    50% {
+        box-shadow: 0 2px 4px 0 #15f4ee inset, 0 2px 4px 0 #15f4ee, 0 2px 8px 0 #15f4ee inset, 0 2px 10px 0 #15f4ee;
+        text-shadow: 0 0 5px #15f4ee, 0 0 5px #15f4ee;
+    }
+    100% {
+        text-shadow: 0px 0px 0px;
+    }
+}

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/btnNeon.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
         @font-face {
@@ -68,7 +69,6 @@
         form {
             display: flex;
             flex-direction: column;
-            width: 50%;
             border: 1px solid;
             align-self: center;
         }
@@ -149,7 +149,6 @@
         
         #btnExit {
             margin-top: 60px;
-            width: 50%;
         }
         
         .mdc-form-field>label {
@@ -190,11 +189,11 @@
                         </div>
                         <% }); %>
 
-                            <button class="btn btn-dark" id="vote">Проголосовать</button>
-                            <button type="button" class="btn btn-dark" id="revote">Переголосовать</button>
+                            <button class="btncontainer" id="vote"><div class="btnbutton">Проголосовать</div></button>
+                            <button class="btncontainer" id="revote"><div class="btnbutton">Переголосовать</div></button>
 
                 </form>
-                <button type="button" class="btn btn-dark" id="btnExit"><a id="exit" href="/">Выйти</a> </button>
+                <button type="button" class="btncontainer" id="btnExit"><div class="btnbutton"><a id="exit" href="/">Выйти</a></div> </button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="/scripts/cookies.js"></script>
