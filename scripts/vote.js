@@ -9,19 +9,22 @@ let timeStart = null;
 
 getIsFinish($voteForm); 
 getIsVote($vote);
-
  if (getCookie('voted')) {
   $members.forEach(member => member.disabled = true);
   toggle($vote, $revote);
  }
 timerWork('/vote/time', $timer);
 
+if (getCookie('chose')) {   
+  document.querySelector(`[value="${getCookie('chose')}"]`).checked = true;
+}
+
 
 $voteForm.addEventListener('submit', (e) => {
   e.preventDefault();
   toggle($vote, $revote);
   setVotedTrue();
-  sendVote('/voted', $voteForm);
+  sendVote('/voted', $voteForm, true);
   $members.forEach(member => member.disabled = true);
 })
 
@@ -143,9 +146,19 @@ function setVotedTrue() {
   });
 }
 
-function sendVote(url, $voteForm) {
+function sendVote(url, $voteForm, boolean) {
   const voteFormData = new FormData($voteForm);
   const vote = formDataToObj(voteFormData);
+  console.log();
+  
+  if (boolean) {
+    deleteCookie('chose');
+    setCookie('chose', vote.radios, {
+      
+      'max-age': getTimeLeft(timeStart, 60),
+    })
+  }
+  
   if (Object.keys(vote).length > 0) {
     fetch(url, {
       method: 'POST',
