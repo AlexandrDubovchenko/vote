@@ -111,7 +111,7 @@
             width: 90%;
         }
         
-        #appt {
+        [name = "appt"] {
             border-radius: 18px;
             text-align: center;
             width: 124px;
@@ -124,12 +124,12 @@
             margin-bottom: 10px;
         }
         
-        #appt:focus {
+        [name = "appt"]:focus {
             outline: none;
             box-shadow: 0 5px 50px 0 #15f4ee inset;
         }
         
-        #password {
+        [name = "password"] {
             border: 2px solid #15f4ee;
             background-color: #ffffffb2;
             border-radius: 50px;
@@ -164,8 +164,8 @@
                 <input type="text" name='member' placeholder="Имя участника">
                 <button type="button" class="add btncontainer" id="btnAdd"><div class="btnPlus" id="divAdd">+</div></button>
             </div>
-            <input type="text" id="password" placeholder="Пароль">
-            <input type="time" id="appt" min="00:15" max="15:59" value="01:00" required>
+            <input type="text" name="password" placeholder="Пароль">
+            <input type="time" name="appt" min="00:15" max="15:59" value="01:00" required>
 
             <button class="btncontainer"><div class="btnbutton sndbtn">Создать</div></button>
         </form>

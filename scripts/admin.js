@@ -3,6 +3,7 @@ const $add = document.querySelector('.add');
 const $btnExit = document.querySelector('#btnExit');
 const $exitLink = document.querySelector('#exit');
 
+let formData = new FormData($formAdmin);
 const members = [];
 
 $btnExit.addEventListener('click', () => {
@@ -21,15 +22,6 @@ $add.addEventListener('click', ()=>{
 });
 
 
-
-
-
-
-
-
-
-
-
 function render(parent, content){
     const $li = document.createElement('li');
     $li.textContent =  content;
@@ -37,23 +29,23 @@ function render(parent, content){
 }
 
 function addMember($formAdmin, members){
-    const formData = new FormData($formAdmin);
-    formData.forEach(value=>{
-        
-        
-        if (value.split(' ').filter((el)=> el !== '').length > 0 ){
-            members.push(value)
-            render(document.querySelector('.members'), value);
+    formData = new FormData($formAdmin);
+    const memberInput =  formDataToObj(formData).member;
+        if (memberInput.split(' ').filter((el)=> el !== '').length > 0 ){
+            members.push(memberInput)
+            render(document.querySelector('.members'), memberInput);
         }
 
 
-    });
-}
+    };
 
 function createVote($formAdmin, members){
+    formData = new FormData($formAdmin)
+    const password = formDataToObj(formData).password;
     const adminData = {
         members: members,
         timeStart: +moment().format('X'),
+        password: password
     }
 
    fetch('/create', {
@@ -65,3 +57,11 @@ function createVote($formAdmin, members){
    }).then($formAdmin.submit())
 }
 
+
+
+
+function formDataToObj(FormData) {
+    const FormDataObj = {};
+    FormData.forEach((value, key) => FormDataObj[key] = value);
+    return FormDataObj
+  }
