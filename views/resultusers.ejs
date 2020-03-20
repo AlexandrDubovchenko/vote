@@ -96,13 +96,14 @@
         <div class="timer"></div>
 
         <div class="results__chart">
-            <% for (member in membersRes){ %>
+            <% membersRes.forEach(member => { %>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width:<%= isNaN(votes * 100 / member[1]) || !isFinite(votes * 100 / member[1])  ? 20 : (votes * 100 / member[1])  %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <%= member[0].split('_').join(' ') %>  <%= isNaN(votes * 100 / member[1]) || !isFinite(votes * 100 /member[1])  ? 0 : (votes * 100 / member[1])  %>%
+                    </div>
+                </div>
+           <% });%>
 
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width:<%= votes * 100 / membersRes[member] %>% "
-                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">  <%= member %> <%= isNaN(votes * 100 / membersRes[member]) || !isFinite(votes * 100 / membersRes[member])  ? 0 : (votes * 100 / membersRes[member])  %>% </div>
-            </div>
-            <%  } %>
         </div>
         <form action="/newvote" method="post" id="createForm"></form>
         <div class="control">
