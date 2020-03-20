@@ -8,11 +8,14 @@ const $revote = document.querySelector('#revote')
 let timeStart = null;
 
 getIsFinish($voteForm); 
+
+
 getIsVote($vote);
  if (getCookie('voted')) {
   $members.forEach(member => member.disabled = true);
   toggle($vote, $revote);
  }
+
 timerWork('/vote/time', $timer);
 
 if (getCookie('chose')) {   
@@ -97,15 +100,16 @@ function timerWork(url, $timer){
       'Content-Type': 'application/json'
     },
   }).then(res => res.json()).then(res => {
-    timeStart = +res;
-    $timer.textContent = timeFormatted('mm:ss', getTimeLeft(timeStart ,60));
-    timerStart(timeStart)
+    timeStart = +res.timeStart;
+    const deadline = +res.deadline;
+    $timer.textContent = timeFormatted('mm:ss', getTimeLeft(timeStart ,deadline));
+    timerStart(timeStart, deadline)
   });
 }
 
 
-function timerStart(timeStart) {
-  let timeLeft = getTimeLeft(timeStart, 60); 
+function timerStart(timeStart, deadline) {
+  let timeLeft = getTimeLeft(timeStart, deadline); 
   return function timerCount() {
       const timer = setTimeout(timerCount, 1000)
       if (timeLeft >= 0) {
@@ -142,7 +146,7 @@ function setVotedTrue() {
     },
   }).then(res => res.json()).then(res => {
     timeStart = +res;
-    setCookie('voted', true, {'max-age': getTimeLeft(timeStart, 60)})
+    setCookie('voted', true, {'max-age': getTimeLeft(timeStart, deadline)})
   });
 }
 
@@ -155,7 +159,7 @@ function sendVote(url, $voteForm, boolean) {
     deleteCookie('chose');
     setCookie('chose', vote.radios, {
       
-      'max-age': getTimeLeft(timeStart, 60),
+      'max-age': getTimeLeft(timeStart, deadline),
     })
   }
   

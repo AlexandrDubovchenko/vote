@@ -40,12 +40,23 @@ function addMember($formAdmin, members){
     };
 
 function createVote($formAdmin, members){
-    formData = new FormData($formAdmin)
+    if (members.length > 0) {
+        formData = new FormData($formAdmin)
     const password = formDataToObj(formData).password;
+    const appt = formDataToObj(formData).appt;
+    const deadline = {
+        minutes : +appt.split(':')[0],
+        seconds : +appt.split(':')[1],
+        get deadlineSeconds() {
+            return this.minutes*60 + this.seconds;
+        },
+    };
     const adminData = {
         members: members,
         timeStart: +moment().format('X'),
-        password: password
+        password: password,
+        deadline : deadline.deadlineSeconds 
+        
     }
 
    fetch('/create', {
@@ -55,6 +66,8 @@ function createVote($formAdmin, members){
       'Content-Type': 'application/json'
     }
    }).then($formAdmin.submit())
+    }
+    
 }
 
 
