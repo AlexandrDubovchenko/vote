@@ -10,17 +10,18 @@ let membersRes = {};
 let votes = 0;
 let isVote = false;
 let isFinished = false;
-
+let deadline = 0;
 
 const adminPassword = 'admin';
 let timeStart = null;
 
 
-async function finishVote() {
+function finishVote(timeout) {
     setTimeout(() => {
-
+        
+        
         isFinished = true;
-    }, 60000);
+    }, timeout*1000);
 }
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -47,7 +48,13 @@ app.get('/isfinished', urlencodedJson, (req, res) => res.send(isFinished));
 
 app.get('/isvote', urlencodedJson, (req, res) => res.send(isVote));
 
-app.get('/vote/time', urlencodedJson, (req, res) => { res.send(JSON.stringify(timeStart)) })
+app.get('/vote/time', urlencodedJson, (req, res) => {
+     const time = {
+        timeStart: timeStart,
+        deadline: deadline,
+     }
+     res.send(JSON.stringify(time)) 
+    })
 
 app.post('/admin', urlencodedJson, function(req, res, next) {
 
@@ -74,7 +81,14 @@ app.post('/vote', urlencodedParser, (req, res) => {
 
 
 app.post('/result', urlencodedJson, function(req, res, next) {
-    res.render('result', { membersRes: membersRes, votes: votes, });
+    membersResSort =  Object.entries(membersRes).sort((a, b)=>{
+        return b[1] - a[1]
+    });
+  
+
+   
+    
+    res.render('result', { membersRes: membersResSort, votes: votes, });
     res.end();
 });
 app.post('/resultusers', urlencodedJson, function(req, res, next) {
@@ -110,10 +124,9 @@ app.post('/create', urlencodedJson, (req, res) => {
     req.body.members.forEach(member => members.push(member.split(' ').join('_')));    
     members.forEach(member => membersRes[member] = 0);
     timeStart = req.body.timeStart;
-    password = req.body.password
-    console.log(password);
-    
-    finishVote();
+    password = req.body.password;
+    deadline = req.body.deadline;
+    finishVote(deadline);  
 
 });
 app.post('/finish', (req, res) => {

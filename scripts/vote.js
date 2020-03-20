@@ -6,13 +6,17 @@ const $exitLink = document.getElementById('exit');
 const $timer = document.querySelector('.timer');
 const $revote = document.querySelector('#revote')
 let timeStart = null;
+let deadline
 
 getIsFinish($voteForm); 
+
+
 getIsVote($vote);
  if (getCookie('voted')) {
   $members.forEach(member => member.disabled = true);
   toggle($vote, $revote);
  }
+
 timerWork('/vote/time', $timer);
 
 if (getCookie('chose')) {   
@@ -97,15 +101,19 @@ function timerWork(url, $timer){
       'Content-Type': 'application/json'
     },
   }).then(res => res.json()).then(res => {
-    timeStart = +res;
-    $timer.textContent = timeFormatted('mm:ss', getTimeLeft(timeStart ,60));
-    timerStart(timeStart)
+    timeStart = +res.timeStart;
+    deadline = +res.deadline;
+    
+    
+    
+    $timer.textContent = timeFormatted('mm:ss', getTimeLeft(timeStart ,deadline));
+    timerStart(timeStart, deadline)
   });
 }
 
 
-function timerStart(timeStart) {
-  let timeLeft = getTimeLeft(timeStart, 60); 
+function timerStart(timeStart, deadline) {
+  let timeLeft = getTimeLeft(timeStart, deadline); 
   return function timerCount() {
       const timer = setTimeout(timerCount, 1000)
       if (timeLeft >= 0) {
@@ -135,27 +143,29 @@ function getTimeLeft(timeStart ,deadline) {
 }
 
 function setVotedTrue() {
+  console.log(deadline);
+  
   fetch('/vote/time', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
   }).then(res => res.json()).then(res => {
-    timeStart = +res;
-    setCookie('voted', true, {'max-age': getTimeLeft(timeStart, 60)})
+    timeStart = +res.timeStart;
+    setCookie('voted', true, {'max-age': getTimeLeft(timeStart, deadline)})
   });
 }
 
 function sendVote(url, $voteForm, boolean) {
   const voteFormData = new FormData($voteForm);
   const vote = formDataToObj(voteFormData);
-  console.log();
+  
   
   if (boolean) {
-    deleteCookie('chose');
+    deleteCookie('chose');    
     setCookie('chose', vote.radios, {
       
-      'max-age': getTimeLeft(timeStart, 60),
+      'max-age': getTimeLeft(timeStart, deadline),
     })
   }
   

@@ -76,6 +76,7 @@
             margin-bottom: 24px;
             background-color: transparent;
             height: 20px;
+            overflow: visible;
         }
         
         .progress-bar {
@@ -85,6 +86,7 @@
             font-size: 14px;
             white-space: normal;
             position: relative;
+            box-shadow: 0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee, 0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee;
         }
         
         .progress-bar:before {
@@ -114,7 +116,7 @@
         
         .progp {
             margin-top: 20px;
-            position: absolute;
+            position: fixed;
             color: aliceblue;
             padding-left: 10px;
         }
@@ -273,18 +275,20 @@
         <div class="timer"></div>
 
         <div class="results__chart">
-            <% for (member in membersRes){ %>
-
+            <% membersRes.forEach(member => { %>
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width:<%= isNaN(votes * 100 / membersRes[member]) || !isFinite(votes * 100 / membersRes[member])  ? 20 : (votes * 100 / membersRes[member])  %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" role="progressbar" style="width:<%= isNaN(votes * 100 / member[1]) || !isFinite(votes * 100 / member[1])  ? 20 : (votes * 100 / member[1])  %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <p class="progp">
+                            <%= member[0].split('_').join(' ') %>
+                                <%= isNaN(votes * 100 / member[1]) || !isFinite(votes * 100 /member[1])  ? 0 : (votes * 100 / member[1])  %>%
+                        </p>
                     </div>
-                    <p class="progp">
-                        <%= member.split('_').join(' ') %>
-                            <%= isNaN(votes * 100 / membersRes[member]) || !isFinite(votes * 100 / membersRes[member])  ? 0 : (votes * 100 / membersRes[member])  %>%
-                    </p>
 
                 </div>
-                <%  } %>
+                <% });%>
+
+
+
         </div>
         <form action="/newvote" method="post" id="createForm"></form>
         <div class="control">
