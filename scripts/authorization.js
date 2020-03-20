@@ -5,7 +5,11 @@ $inputPassword.value = getCookie('passwordAdmin') || getCookie('password');
 
 
 let accessTry = 0;
-sendPassword($authForm)
+
+if (getCookie('password') || getCookie('passwordAdmin') ) {
+    sendPassword($authForm)
+}
+
 
 
 

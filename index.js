@@ -4,7 +4,7 @@ const app = express();
 const ejs = require('ejs')
 
 
-const password = '12345';
+let password = '12345';
 let members = [];
 let membersRes = {};
 let votes = 0;
@@ -110,7 +110,8 @@ app.post('/create', urlencodedJson, (req, res) => {
     req.body.members.forEach(member => members.push(member.split(' ').join('_')));    
     members.forEach(member => membersRes[member] = 0);
     timeStart = req.body.timeStart;
-    
+    password = req.body.password
+    console.log(password);
     
     finishVote();
 
