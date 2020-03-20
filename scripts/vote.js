@@ -6,6 +6,7 @@ const $exitLink = document.getElementById('exit');
 const $timer = document.querySelector('.timer');
 const $revote = document.querySelector('#revote')
 let timeStart = null;
+let deadline
 
 getIsFinish($voteForm); 
 
@@ -101,7 +102,10 @@ function timerWork(url, $timer){
     },
   }).then(res => res.json()).then(res => {
     timeStart = +res.timeStart;
-    const deadline = +res.deadline;
+    deadline = +res.deadline;
+    
+    
+    
     $timer.textContent = timeFormatted('mm:ss', getTimeLeft(timeStart ,deadline));
     timerStart(timeStart, deadline)
   });
@@ -139,13 +143,15 @@ function getTimeLeft(timeStart ,deadline) {
 }
 
 function setVotedTrue() {
+  console.log(deadline);
+  
   fetch('/vote/time', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
   }).then(res => res.json()).then(res => {
-    timeStart = +res;
+    timeStart = +res.timeStart;
     setCookie('voted', true, {'max-age': getTimeLeft(timeStart, deadline)})
   });
 }
@@ -153,10 +159,10 @@ function setVotedTrue() {
 function sendVote(url, $voteForm, boolean) {
   const voteFormData = new FormData($voteForm);
   const vote = formDataToObj(voteFormData);
-  console.log();
+  
   
   if (boolean) {
-    deleteCookie('chose');
+    deleteCookie('chose');    
     setCookie('chose', vote.radios, {
       
       'max-age': getTimeLeft(timeStart, deadline),

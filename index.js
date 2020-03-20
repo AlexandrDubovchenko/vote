@@ -81,7 +81,14 @@ app.post('/vote', urlencodedParser, (req, res) => {
 
 
 app.post('/result', urlencodedJson, function(req, res, next) {
-    res.render('result', { membersRes: membersRes, votes: votes, });
+    membersResSort =  Object.entries(membersRes).sort((a, b)=>{
+        return b[1] - a[1]
+    });
+  
+
+   
+    
+    res.render('result', { membersRes: membersResSort, votes: votes, });
     res.end();
 });
 app.post('/resultusers', urlencodedJson, function(req, res, next) {
