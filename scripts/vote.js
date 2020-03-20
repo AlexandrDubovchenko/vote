@@ -8,6 +8,7 @@ const $revote = document.querySelector('#revote')
 let timeStart = null;
 
 getIsFinish($voteForm); 
+getIsVote($vote);
 
  if (getCookie('voted')) {
   $members.forEach(member => member.disabled = true);
@@ -70,6 +71,19 @@ function getIsFinish($voteForm) {
     }
   }).then(res => res.json()).then((res)=>{
     toResult(res, $voteForm)
+  })
+};
+
+function getIsVote(button){
+  fetch('/isVote', {
+    method: 'GET', 
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json()).then((res)=>{
+    if (!res) {     
+      button.disabled = true;
+    }
   })
 }
 

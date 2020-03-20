@@ -45,6 +45,8 @@ app.get('/admin/isvote', urlencodedJson, function(req, res, next) {
 });
 app.get('/isfinished', urlencodedJson, (req, res) => res.send(isFinished));
 
+app.get('/isvote', urlencodedJson, (req, res) => res.send(isVote));
+
 app.get('/vote/time', urlencodedJson, (req, res) => { res.send(JSON.stringify(timeStart)) })
 
 app.post('/admin', urlencodedJson, function(req, res, next) {
