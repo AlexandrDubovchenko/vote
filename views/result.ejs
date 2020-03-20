@@ -83,6 +83,7 @@
             border-radius: 50px;
             height: 100%;
             font-size: 14px;
+            white-space: normal;
         }
         
         .control {
@@ -242,8 +243,8 @@
             <% for (member in membersRes){ %>
 
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width:<%= votes * 100 / membersRes[member] %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                        <%= member %> <%= isNaN(votes * 100 / membersRes[member]) || !isFinite(votes * 100 / membersRes[member])  ? 0 : (votes * 100 / membersRes[member])  %>%
+                    <div class="progress-bar" role="progressbar" style="width:<%= isNaN(votes * 100 / membersRes[member]) || !isFinite(votes * 100 / membersRes[member])  ? 20 : (votes * 100 / membersRes[member])  %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <%= member.split('_').join(' ') %>  <%= isNaN(votes * 100 / membersRes[member]) || !isFinite(votes * 100 / membersRes[member])  ? 0 : (votes * 100 / membersRes[member])  %>%
                     </div>
                 </div>
                 <%  } %>

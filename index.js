@@ -54,9 +54,7 @@ app.post('/admin', urlencodedJson, function(req, res, next) {
 })
 
 
-app.post('/authorization', urlencodedJson, function(req, res, next) {
-    console.log(req.body);
-    
+app.post('/authorization', urlencodedJson, function(req, res, next) {    
     if (password === req.body.password) {
         res.send(JSON.stringify({ 'authorize': true }))
     } else if (adminPassword === req.body.password) {
@@ -107,14 +105,17 @@ app.post('/newvote', (req, res) => {
 app.post('/create', urlencodedJson, (req, res) => {
     isFinished = false;
     isVote = true;
-    req.body.members.forEach(member => members.push(member));
+    req.body.members.forEach(member => members.push(member.split(' ').join('_')));    
     members.forEach(member => membersRes[member] = 0);
     timeStart = req.body.timeStart;
+    
+    
     finishVote();
 
 });
 app.post('/finish', (req, res) => {
     isVote = false;
+    isFinished = true;
     members = [];
     membersRes = {};
 })

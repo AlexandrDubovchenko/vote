@@ -11,7 +11,7 @@ getIsFinish($voteForm);
 
  if (getCookie('voted')) {
   $members.forEach(member => member.disabled = true);
-  $vote.disabled = true;
+  toggle($vote, $revote);
  }
 timerWork('/vote/time', $timer);
 

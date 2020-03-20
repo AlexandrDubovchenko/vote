@@ -35,6 +35,7 @@ function addMember($formAdmin, members){
             members.push(value)
             render(document.querySelector('.members'), value);
         }
+console.log(members);
 
     });
 }

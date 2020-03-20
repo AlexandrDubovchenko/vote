@@ -177,7 +177,7 @@
 
                             <div class="mdc-radio">
 
-                                <input class="mdc-radio__native-control" type="radio" id="radio-<%= index+1%>" name="radios" value=<%=member%>>
+                                <input class="mdc-radio__native-control" type="radio" id="radio-<%= index+1%>" name="radios" value=<%=member.split(' ').join('_')%>>
                                 <div class="mdc-radio__background">
                                     <div class="mdc-radio__outer-circle"></div>
                                     <div class="mdc-radio__inner-circle"></div>
@@ -185,7 +185,7 @@
                                 <div class="mdc-radio__ripple"></div>
 
                             </div>
-                            <label for="radio-<%= index+1%>">  <%= member %>   </label>
+                            <label for="radio-<%= index+1%>">  <%= member.split('_').join(' ') %>   </label>
                         </div>
                         <% }); %>
 
