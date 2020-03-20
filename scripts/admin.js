@@ -31,11 +31,13 @@ function render(parent, content){
 function addMember($formAdmin, members){
     const formData = new FormData($formAdmin);
     formData.forEach(value=>{
-        if (value !== '') {
+        
+        
+        if (value.split(' ').filter((el)=> el !== '').length > 0 ){
             members.push(value)
             render(document.querySelector('.members'), value);
         }
-console.log(members);
+
 
     });
 }
