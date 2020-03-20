@@ -116,6 +116,15 @@
         #btnExit {
             width: 90%;
         }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        a:hover {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
 
@@ -134,7 +143,7 @@
             <button class="btncontainer"><div class="btnbutton sndbtn">Submit</div></button>
         </form>
 
-        <button class="btncontainer" id="btnExit"><div class="btnbutton">Выход</div></button>
+        <button type="button" class="btncontainer" id="btnExit"><div class="btnbutton"><a id="exit" href="/">Выйти</a></div></button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="/scripts/cookies.js"></script>

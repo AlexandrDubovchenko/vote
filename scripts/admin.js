@@ -1,6 +1,14 @@
 const $formAdmin = document.querySelector('.admin');
 const $add = document.querySelector('.add');
+const $btnExit = document.querySelector('#btnExit');
+const $exitLink = document.querySelector('#exit');
+
 const members = [];
+
+$btnExit.addEventListener('click', () => {
+    deleteCookie('passwordAdmin');
+    $exitLink.click();
+  });
 
 
 $formAdmin.addEventListener('submit', (e)=>{   
