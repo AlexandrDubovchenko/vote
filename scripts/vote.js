@@ -8,18 +8,16 @@ const $revote = document.querySelector('#revote')
 let timeStart = null;
 let deadline
 
-getIsFinish($voteForm); 
-
+getIsFinish($voteForm);
 
 getIsVote($vote);
- if (getCookie('voted')) {
+if (getCookie('voted')) {
   $members.forEach(member => member.disabled = true);
   toggle($vote, $revote);
- }
-
+}
 timerWork('/vote/time', $timer);
 
-if (getCookie('chose')) {   
+if (getCookie('chose')) {
   document.querySelector(`[value="${getCookie('chose')}"]`).checked = true;
 }
 
@@ -37,8 +35,8 @@ $btnExit.addEventListener('click', () => {
   $exitLink.click();
 });
 
-$revote.addEventListener('click', ()=>{
-  
+$revote.addEventListener('click', () => {
+
   $members.forEach(member => member.removeAttribute('disabled'));
   toggle($revote, $vote)
   sendVote('/revote', $voteForm);
@@ -64,37 +62,40 @@ function toggle(clicked, hidden) {
 
 
 function toResult(res, $voteForm) {
+
   if (res) {
+    deleteCookie('chose')
     $voteForm.action = '/resultusers';
     $voteForm.submit();
-  }
+  } 
+  
 }
 
 function getIsFinish($voteForm) {
   fetch('/isfinished', {
-    method: 'GET', 
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(res => res.json()).then((res)=>{
+  }).then(res => res.json()).then((res) => {
     toResult(res, $voteForm)
   })
 };
 
-function getIsVote(button){
+function getIsVote(button) {
   fetch('/isVote', {
-    method: 'GET', 
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(res => res.json()).then((res)=>{
-    if (!res) {     
+  }).then(res => res.json()).then((res) => {
+    if (!res) {
       button.disabled = true;
     }
   })
 }
 
-function timerWork(url, $timer){
+function timerWork(url, $timer) {
   fetch(url, {
     method: 'GET',
     headers: {
@@ -103,37 +104,37 @@ function timerWork(url, $timer){
   }).then(res => res.json()).then(res => {
     timeStart = +res.timeStart;
     deadline = +res.deadline;
-    
-    
-    
-    $timer.textContent = timeFormatted('mm:ss', getTimeLeft(timeStart ,deadline));
+
+
+
+    $timer.textContent = timeFormatted('mm:ss', getTimeLeft(timeStart, deadline));
     timerStart(timeStart, deadline)
   });
 }
 
 
 function timerStart(timeStart, deadline) {
-  let timeLeft = getTimeLeft(timeStart, deadline); 
+  let timeLeft = getTimeLeft(timeStart, deadline);
   return function timerCount() {
-      const timer = setTimeout(timerCount, 1000)
-      if (timeLeft >= 0) {
-        const formatted = timeFormatted('mm:ss', timeLeft);
-        $timer.textContent = formatted;
-        --timeLeft;
-      } else {
-        timerStop(timer, $timer);
-      }
+    const timer = setTimeout(timerCount, 1000)
+    if (timeLeft >= 0) {
+      const formatted = timeFormatted('mm:ss', timeLeft);
+      $timer.textContent = formatted;
+      --timeLeft;
+    } else {
+      timerStop(timer, $timer);
+    }
   }()
 }
 function timerStop(timer, $timer) {
   clearTimeout(timer);
-        timeLeft = 0;
-        const formatted = timeFormatted('mm:ss' ,timeLeft);
-        $timer.textContent = formatted;   
-        getIsFinish($voteForm);
+  timeLeft = 0;
+  const formatted = timeFormatted('mm:ss', timeLeft);
+  $timer.textContent = formatted;
+  getIsFinish($voteForm);
 }
 
-function getTimeLeft(timeStart ,deadline) {
+function getTimeLeft(timeStart, deadline) {
   let timeLeft = 0;
   if (timeStart !== 0) {
     return timeLeft = deadline - (+moment().format('X') - timeStart);
@@ -143,8 +144,8 @@ function getTimeLeft(timeStart ,deadline) {
 }
 
 function setVotedTrue() {
-  console.log(deadline);
-  
+
+
   fetch('/vote/time', {
     method: 'GET',
     headers: {
@@ -152,23 +153,23 @@ function setVotedTrue() {
     },
   }).then(res => res.json()).then(res => {
     timeStart = +res.timeStart;
-    setCookie('voted', true, {'max-age': getTimeLeft(timeStart, deadline)})
+    setCookie('voted', true, { 'max-age': getTimeLeft(timeStart, deadline) })
   });
 }
 
 function sendVote(url, $voteForm, boolean) {
   const voteFormData = new FormData($voteForm);
   const vote = formDataToObj(voteFormData);
-  
-  
+
+
   if (boolean) {
-    deleteCookie('chose');    
+    deleteCookie('chose');
     setCookie('chose', vote.radios, {
-      
+
       'max-age': getTimeLeft(timeStart, deadline),
     })
   }
-  
+
   if (Object.keys(vote).length > 0) {
     fetch(url, {
       method: 'POST',
@@ -177,12 +178,12 @@ function sendVote(url, $voteForm, boolean) {
       },
       body: JSON.stringify(vote),
     }).then();
-  } 
-  
-  
+  }
+
+
 }
 
-function timeFormatted(format, timeLeft){
+function timeFormatted(format, timeLeft) {
   return moment.utc(timeLeft * 1000).format(format)
 }
 

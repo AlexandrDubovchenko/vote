@@ -81,7 +81,7 @@ app.post('/vote', urlencodedParser, (req, res) => {
 
 
 app.post('/result', urlencodedJson, function(req, res, next) {
-    membersResSort =  Object.entries(membersRes).sort((a, b)=>{
+    const membersResSort =  Object.entries(membersRes).sort((a, b)=>{
         return b[1] - a[1]
     });
   
@@ -92,7 +92,16 @@ app.post('/result', urlencodedJson, function(req, res, next) {
     res.end();
 });
 app.post('/resultusers', urlencodedJson, function(req, res, next) {
-    res.render('resultusers', { membersRes: membersRes, votes: votes, });
+    const membersResSort =  Object.entries(membersRes).sort((a, b)=>{
+        return b[1] - a[1]
+    });
+  
+    console.log( membersRes);
+    
+   
+    
+    res.render('resultusers', { membersRes: membersResSort, votes: votes, });
+    res.end();
 });
 app.post('/revote', urlencodedJson, (req, res)=>{
     if (membersRes[req.body.radios] > 0 ) {
@@ -133,7 +142,6 @@ app.post('/finish', (req, res) => {
     isVote = false;
     isFinished = true;
     members = [];
-    membersRes = {};
 })
 
 
