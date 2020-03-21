@@ -42,6 +42,11 @@ function addMember($formAdmin, members){
 function createVote($formAdmin, members){
     if (members.length > 0) {
         formData = new FormData($formAdmin)
+    
+    if (getCookie('passwordAdmin') === formDataToObj(formData).password) {
+        alert('Пароль не должен совпадать с паролем админа');
+        return
+    };
     const password = formDataToObj(formData).password;
     const appt = formDataToObj(formData).appt;
     const deadline = {

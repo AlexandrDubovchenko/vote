@@ -65,7 +65,7 @@ function toResult(res, $voteForm) {
 
   if (res) {
     deleteCookie('chose')
-    $voteForm.action = '/resultusers';
+    $voteForm.action = '/result';
     $voteForm.submit();
   } 
   

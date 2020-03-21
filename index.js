@@ -6,7 +6,7 @@ const ejs = require('ejs')
 
 let password = '12345';
 let members = [];
-let membersRes = {};
+const membersRes = {};
 let votes = 0;
 let isVote = false;
 let isFinished = false;
@@ -81,28 +81,14 @@ app.post('/vote', urlencodedParser, (req, res) => {
 
 
 app.post('/result', urlencodedJson, function(req, res, next) {
+
     const membersResSort =  Object.entries(membersRes).sort((a, b)=>{
         return b[1] - a[1]
     });
-  
-
-   
-    
     res.render('result', { membersRes: membersResSort, votes: votes, });
     res.end();
 });
-app.post('/resultusers', urlencodedJson, function(req, res, next) {
-    const membersResSort =  Object.entries(membersRes).sort((a, b)=>{
-        return b[1] - a[1]
-    });
-  
-    console.log( membersRes);
-    
-   
-    
-    res.render('resultusers', { membersRes: membersResSort, votes: votes, });
-    res.end();
-});
+
 app.post('/revote', urlencodedJson, (req, res)=>{
     if (membersRes[req.body.radios] > 0 ) {
         membersRes[req.body.radios]--;
@@ -136,12 +122,17 @@ app.post('/create', urlencodedJson, (req, res) => {
     password = req.body.password;
     deadline = req.body.deadline;
     finishVote(deadline);  
-
+    console.log(membersRes);
+    
 });
 app.post('/finish', (req, res) => {
     isVote = false;
     isFinished = true;
     members = [];
+    const membersResSort =  Object.entries(membersRes).sort((a, b)=>{
+        return b[1] - a[1]
+    });
+    res.render('result', { membersRes: membersResSort, votes: votes, });
 })
 
 
