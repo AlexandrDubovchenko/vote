@@ -73,17 +73,53 @@
         }
         
         .progress {
-            margin-bottom: 10px;
+            margin-bottom: 24px;
             background-color: transparent;
-            height: 30px;
+            height: 14px;
+            overflow: visible;
+            position: relative;
         }
         
         .progress-bar {
-            background-color: rgb(54, 60, 70);
+            background-color: #c2fffd;
             border-radius: 50px;
             height: 100%;
             font-size: 14px;
             white-space: normal;
+            position: relative;
+            box-shadow: 0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee, 0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee;
+        }
+        
+        .progress-bar:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0px;
+            width: 30px;
+            height: 100%;
+            background: #262626;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            border-radius: 30px 0 0 30px;
+        }
+        
+        .progress-bar::after {
+            position: absolute;
+            content: '';
+            right: 0px;
+            width: 30px;
+            height: 100%;
+            background: #262626;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            border-radius: 0 30px 30px 0;
+        }
+        
+        .progp {
+            margin-top: 18px;
+            position: absolute;
+            color: aliceblue;
+            padding-left: 36px;
         }
         
         .control {
@@ -243,13 +279,17 @@
             <% membersRes.forEach(member => { %>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" style="width:<%= isNaN(votes * 100 / member[1]) || !isFinite(votes * 100 / member[1])  ? 20 : (votes * 100 / member[1])  %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                        <%= member[0].split('_').join(' ') %>  <%= isNaN(votes * 100 / member[1]) || !isFinite(votes * 100 /member[1])  ? 0 : (votes * 100 / member[1])  %>%
+
                     </div>
+                    <p class="progp">
+                        <%= member[0].split('_').join(' ') %>
+                            <%= isNaN(votes * 100 / member[1]) || !isFinite(votes * 100 /member[1])  ? 0 : (votes * 100 / member[1])  %>%
+                    </p>
                 </div>
-           <% });%>
+                <% });%>
 
 
-               
+
         </div>
         <form action="/newvote" method="post" id="createForm"></form>
         <form action="/finish" method="post" id="finishForm"></form>
