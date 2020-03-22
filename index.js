@@ -88,7 +88,7 @@ app.post('/result', urlencodedJson, function(req, res, next) {
 
     const membersResSort =  Object.entries(membersRes).sort((a, b)=>{
         return b[1] - a[1]
-    });
+    });    
     res.render('result', { membersRes: membersResSort, votes: votes, });
     res.end();
 });
@@ -114,6 +114,7 @@ app.post('/voted', urlencodedJson, function(req, res) {
 app.post('/newvote', (req, res) => {
     members = [];
     membersRes = {};
+    votes = 0;
     isVote = false;
     res.redirect('admin')
 })
