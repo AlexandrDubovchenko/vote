@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const ejs = require('ejs');
-const cookieParser = require('cookie-parser')
+
 
 
 let password = '12345';
@@ -33,7 +33,7 @@ app.use('/scripts', express.static(__dirname + '/scripts'));
 app.use('/fonts', express.static(__dirname + '/fonts'));
 app.use('/styles', express.static(__dirname + '/styles'));
 app.set("view engine", "ejs");
-app.use(cookieParser('12345'));
+
 
 app.get('/', function(req, res) {
     res.redirect('authorization');
