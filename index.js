@@ -122,7 +122,7 @@ app.post('/create', urlencodedJson, (req, res) => {
     password = req.body.password;
     deadline = req.body.deadline;
     finishVote(deadline);  
-    console.log(membersRes);
+ 
     
 });
 app.post('/finish', (req, res) => {
@@ -132,6 +132,7 @@ app.post('/finish', (req, res) => {
     const membersResSort =  Object.entries(membersRes).sort((a, b)=>{
         return b[1] - a[1]
     });
+    membersRes = {};
     res.render('result', { membersRes: membersResSort, votes: votes, });
 })
 
