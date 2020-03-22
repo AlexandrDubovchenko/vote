@@ -7,19 +7,29 @@ const $timer = document.querySelector('.timer');
 const $revote = document.querySelector('#revote')
 let timeStart = null;
 let deadline
+let creationTime
+
+
+getTimeObject('/vote/time')
+  .then(res => res.json())
+  .then(res => {
+    creationTime = +res.creationTime;
+    if (getCookie('voted' + creationTime)) {
+      $members.forEach(member => member.disabled = true);
+      toggle($vote, $revote);
+    }
+    if (getCookie('chose' + creationTime)) {      
+      document.querySelector(`[value="${getCookie('chose' + creationTime)}"]`).checked = true;
+    }
+  })
 
 getIsFinish($voteForm);
 
 getIsVote($vote);
-if (getCookie('voted')) {
-  $members.forEach(member => member.disabled = true);
-  toggle($vote, $revote);
-}
+
 timerWork('/vote/time', $timer);
 
-if (getCookie('chose')) {
-  document.querySelector(`[value="${getCookie('chose')}"]`).checked = true;
-}
+
 
 
 $voteForm.addEventListener('submit', (e) => {
@@ -67,8 +77,8 @@ function toResult(res, $voteForm) {
     deleteCookie('chose')
     $voteForm.action = '/result';
     $voteForm.submit();
-  } 
-  
+  }
+
 }
 
 function getIsFinish($voteForm) {
@@ -95,13 +105,17 @@ function getIsVote(button) {
   })
 }
 
-function timerWork(url, $timer) {
-  fetch(url, {
+function getTimeObject(url) {
+  return (fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
-  }).then(res => res.json()).then(res => {
+  }))
+}
+
+function timerWork(url, $timer) {
+  getTimeObject(url).then(res => res.json()).then(res => {
     timeStart = +res.timeStart;
     deadline = +res.deadline;
 
@@ -144,8 +158,6 @@ function getTimeLeft(timeStart, deadline) {
 }
 
 function setVotedTrue() {
-
-
   fetch('/vote/time', {
     method: 'GET',
     headers: {
@@ -153,7 +165,7 @@ function setVotedTrue() {
     },
   }).then(res => res.json()).then(res => {
     timeStart = +res.timeStart;
-    setCookie('voted', true, { 'max-age': getTimeLeft(timeStart, deadline) })
+    setCookie('voted' + creationTime, true, { 'max-age': getTimeLeft(timeStart, deadline) })
   });
 }
 
@@ -164,7 +176,7 @@ function sendVote(url, $voteForm, boolean) {
 
   if (boolean) {
     deleteCookie('chose');
-    setCookie('chose', vote.radios, {
+    setCookie('chose' + creationTime, vote.radios, {
 
       'max-age': getTimeLeft(timeStart, deadline),
     })

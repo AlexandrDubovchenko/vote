@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const ejs = require('ejs')
+const ejs = require('ejs');
+const cookieParser = require('cookie-parser')
 
 
 let password = '12345';
@@ -11,6 +12,7 @@ let votes = 0;
 let isVote = false;
 let isFinished = false;
 let deadline = 0;
+let creationTime
 
 const adminPassword = 'admin';
 let timeStart = null;
@@ -26,10 +28,12 @@ function finishVote(timeout) {
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const urlencodedJson = bodyParser.json({ extended: false });
+
 app.use('/scripts', express.static(__dirname + '/scripts'));
 app.use('/fonts', express.static(__dirname + '/fonts'));
 app.use('/styles', express.static(__dirname + '/styles'));
 app.set("view engine", "ejs");
+app.use(cookieParser('12345'));
 
 app.get('/', function(req, res) {
     res.redirect('authorization');
@@ -52,6 +56,7 @@ app.get('/vote/time', urlencodedJson, (req, res) => {
      const time = {
         timeStart: timeStart,
         deadline: deadline,
+        creationTime: creationTime,
      }
      res.send(JSON.stringify(time)) 
     })
@@ -76,7 +81,6 @@ app.post('/authorization', urlencodedJson, function(req, res, next) {
 
 app.post('/vote', urlencodedParser, (req, res) => {
     res.render('vote', { members: members, votes: votes });
-    
 });
 
 
@@ -121,9 +125,9 @@ app.post('/create', urlencodedJson, (req, res) => {
     timeStart = req.body.timeStart;
     password = req.body.password;
     deadline = req.body.deadline;
-    finishVote(deadline);  
- 
-    
+    finishVote(deadline);
+    creationTime = +new Date();
+
 });
 app.post('/finish', (req, res) => {
     isVote = false;
