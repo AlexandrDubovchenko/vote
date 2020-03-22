@@ -23,6 +23,7 @@ $add.addEventListener('click', ()=>{
 
 
 function render(parent, content){
+   
     const $li = document.createElement('li');
     $li.textContent =  content;
     parent.append($li);
