@@ -6,7 +6,7 @@ const ejs = require('ejs')
 
 let password = '12345';
 let members = [];
-const membersRes = {};
+let membersRes = {};
 let votes = 0;
 let isVote = false;
 let isFinished = false;
