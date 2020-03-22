@@ -69,7 +69,6 @@
         form {
             display: flex;
             flex-direction: column;
-            border: 1px solid;
             align-self: center;
         }
         
@@ -153,6 +152,12 @@
         
         .mdc-form-field>label {
             width: 100%;
+            color: aliceblue;
+        }
+        /* Select animation */
+        
+        .timerContainer {
+            width: 50%;
         }
     </style>
 </head>
@@ -173,11 +178,11 @@
 
 
                     <% members.forEach((member, index) => { %>
-                        <div class="mdc-form-field">
+                        <div class="mdc-form-field" type="button">
 
                             <div class="mdc-radio">
 
-                                <input class="mdc-radio__native-control" type="radio" id="radio-<%= index+1%>" name="radios" value=<%=member.split(' ').join('_')%>>
+                                <input class="mdc-radio__native-control" type="radio" id="radio-<%= index+1%>" name="radios" value=<%=member.split( ' ').join( '_')%>>
                                 <div class="mdc-radio__background">
                                     <div class="mdc-radio__outer-circle"></div>
                                     <div class="mdc-radio__inner-circle"></div>

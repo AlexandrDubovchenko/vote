@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/btnNeon.css">
     <style>
         @font-face {
@@ -158,6 +159,39 @@
             text-decoration: none;
             color: inherit;
         }
+        
+        .members {
+            width: 98%;
+            color: aliceblue;
+            align-self: baseline;
+            font-size: 18px;
+            list-style-type: none;
+            padding: 0;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        
+        li {
+            padding-bottom: 8px;
+            position: relative;
+        }
+        
+        .btn-circle {
+            width: 20px;
+            position: absolute;
+            top: 5px;
+            right: 0;
+            height: 20px;
+            text-align: center;
+            padding: 0px 0px;
+            font-size: 14px;
+            line-height: 1.428571;
+            border-radius: 26px;
+            border: none;
+            color: red;
+            background: #ffffff8c;
+            outline: none;
+            margin-right: 8px;
+        }
     </style>
 </head>
 
@@ -170,7 +204,7 @@
 
             </ul>
             <div class="admin__form__input">
-                <input type="text" name='member' placeholder="Имя участника">
+                <input type="text" name='member' placeholder="Имя участника" autocomplete="off">
                 <button type="button" class="add btncontainer" id="btnAdd"><div class="btnPlus" id="divAdd">+</div></button>
             </div>
             <input type="text" name="password" placeholder="Пароль" autocomplete="off">
