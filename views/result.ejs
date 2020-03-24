@@ -21,7 +21,7 @@
         <div class="results__chart">
             <% membersRes.forEach(member => { %>
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width:<%= isNaN(member[1] * 100 / votes) || !isFinite(member[1] * 100 / votes)  ? 20 : (member[1] * 100 / votes)  %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" role="progressbar" style="width: <%= isNaN(member[1] * 100 / votes) || !isFinite(member[1] * 100 / votes)  ? 20 : (member[1] * 100 / votes)  %>% " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
 
                     </div>
                     <p class="progp">
