@@ -1,0 +1,53 @@
+body {
+    background-image: url('https://storge.pic2.me/upload/902/58f49c9f32ac0.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1080px) {
+    body {
+        background-image: url('https://img.wallpapersafari.com/phone/750/1334/75/96/1gJru8.jpg');
+        margin: 0;
+    }
+}
+
+h3 {
+    display: flex;
+    flex-direction: column;
+    margin: 34vh 0 18px 0;
+    align-self: center;
+    text-align: center;
+    color: aliceblue;
+}
+
+.wrapper {
+    margin: 16px 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: 96vh;
+    background-color: rgba(0, 0, 0, 0.466);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 66%;
+}
+
+#inputPassword {
+    margin-bottom: 8px;
+    text-align: center;
+    border-radius: 50px;
+}
+
+.btnExit {
+    margin-top: 16px;
+    padding: 0;
+}
