@@ -107,8 +107,10 @@ app.post('/revote', urlencodedJson, (req, res)=>{
 app.post('/voted', urlencodedJson, function(req, res) {
     membersRes[req.body.radios]++;
     console.log(membersRes);
-    console.log(req.body.radios);
+    
+    
     votes++;
+    console.log(votes);
     res.end();
 })
 app.post('/newvote', (req, res) => {
@@ -121,6 +123,8 @@ app.post('/newvote', (req, res) => {
 app.post('/create', urlencodedJson, (req, res) => {
     isFinished = false;
     isVote = true;
+    members = [];
+    membersRes = {};
     req.body.members.forEach(member => members.push(member.split(' ').join('_')));    
     members.forEach(member => membersRes[member] = 0);
     timeStart = req.body.timeStart;
@@ -131,13 +135,11 @@ app.post('/create', urlencodedJson, (req, res) => {
 
 });
 app.post('/finish', (req, res) => {
-    isVote = false;
     isFinished = true;
-    members = [];
     const membersResSort =  Object.entries(membersRes).sort((a, b)=>{
         return b[1] - a[1]
     });
-    membersRes = {};
+    
     res.render('result', { membersRes: membersResSort, votes: votes, });
 })
 
